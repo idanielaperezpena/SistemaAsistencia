@@ -19,6 +19,7 @@ namespace SA
     /// </summary>
     public partial class RegistroNuevos : Window
     {
+        Enlace enlace;
         public RegistroNuevos()
         {
             InitializeComponent();
@@ -30,6 +31,13 @@ namespace SA
             MainWindow main = new MainWindow();
             main.Show();
             this.Close();
+        }
+
+        private void btnGuardarUsuario_Click(object sender, RoutedEventArgs e)
+        {
+            enlace = new Enlace();
+            enlace.insertar();
+            enlace.consulta();
         }
     }
 }

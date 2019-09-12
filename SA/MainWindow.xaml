@@ -105,7 +105,7 @@
                         </materialDesign:ColorZone>
                         <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
                             <TextBlock>Personalización</TextBlock>
-                            <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0 4 0 0" Click="btnListado_Click">
+                            <Button Style="{StaticResource MaterialDesignFlatButton}" Margin="0 4 0 0" Click="btnPersonalizar_Click">
                                 Ir
                             </Button>
                         </StackPanel>

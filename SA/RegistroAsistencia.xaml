@@ -42,19 +42,18 @@
             <materialDesign:Card Grid.Row="2" Grid.Column="2" Grid.RowSpan="5" Grid.ColumnSpan="2" VerticalAlignment="Stretch">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
-                        <RowDefinition/>
+                        <RowDefinition Height="187*"/>
+                        <RowDefinition Height="125*"/>
                     </Grid.RowDefinitions>
 
-                    <Image Source="users/defaultUser.png" Stretch="UniformToFill" Margin="46,0,48,3" HorizontalAlignment="Center" VerticalAlignment="Center" MaxWidth="250" MaxHeight="250" Height="155" Width="170" RenderTransformOrigin="0.506,0.365" />
+                    <Image Source="users/defaultUser.png" Stretch="UniformToFill" Margin="46,0,48,0" MaxWidth="250" MaxHeight="250" RenderTransformOrigin="0.506,0.365" />
 
                     <StackPanel Grid.Row="1" Margin="0,11,0,0">
-                        <TextBlock FontWeight="Bold"  Style="{StaticResource MaterialDesignSubheadingTextBlock}"
-                               Text="Nombre Alumno" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0"/>
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Apellido Paterno" TextAlignment="Center" Margin="0,5,0,0" />
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Text="Apellido Materno" TextAlignment="Center" Margin="0,5,0,0"/>
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Escuela" TextAlignment="Center" Margin="0,5,0,0"/>
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Grado y Grupo" TextAlignment="Center" Margin="0,5,0,0"/>
+                        <TextBlock FontWeight="Bold"  Style="{StaticResource MaterialDesignDisplay2TextBlock}"
+                               Text="Nombre" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre"/>
+                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignTitleTextBlock}" Text="ID" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtID" />
+                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Text="Grado y Grupo" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtGradoGrupo"/>
+                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Observaciones" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtObservaciones"/>
                     </StackPanel>
 
                 </Grid>

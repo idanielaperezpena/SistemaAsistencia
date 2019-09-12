@@ -20,18 +20,23 @@ namespace SA
     /// </summary>
     public partial class MainWindow : Window
     {
-        RegistroNuevos rn = new RegistroNuevos();
-        RegistroAsistencia ra = new RegistroAsistencia();
-        ListadoES ls = new ListadoES();
+        RegistroNuevos rn; 
+        RegistroAsistencia ra; 
+        ListadoES ls;
+        Personalizacion ps;
+        
         public MainWindow()
         {
             InitializeComponent();
+            Enlace enlace = new Enlace();
+            enlace.tablas();
             
 
         }
 
         private void btnRegistarAlumnos_Click(object sender, RoutedEventArgs e)
         {
+           rn= new RegistroNuevos();
             rn.Show();
             this.Hide();
             
@@ -39,6 +44,7 @@ namespace SA
 
         private void btnRegistrarAsistencia_Click(object sender, RoutedEventArgs e)
         {
+            ra = new RegistroAsistencia();
             ra.Show();
             this.Hide();
 
@@ -46,6 +52,7 @@ namespace SA
 
         private void btnListado_Click(object sender, RoutedEventArgs e)
         {
+            ls= new ListadoES();
             ls.Show();
             this.Hide();
            
@@ -54,7 +61,9 @@ namespace SA
         private void btnPersonalizar_Click(object sender, RoutedEventArgs e)
         {
 
-            MessageBox.Show("hola 3");
+            ps = new Personalizacion();
+            ps.Show();
+            this.Hide();
         }
     }
 }
