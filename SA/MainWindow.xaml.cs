@@ -24,13 +24,21 @@ namespace SA
         RegistroAsistencia ra; 
         ListadoES ls;
         Personalizacion ps;
-        
+
         public MainWindow()
         {
             InitializeComponent();
             Enlace enlace = new Enlace();
             enlace.tablas();
-            
+            String[] s = new string[2];
+            s = enlace.consultaPersonalizacion();
+            if (!string.IsNullOrEmpty(s[1]))
+            {
+                Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + s[1] + ".xaml");
+                Application.Current.Resources.MergedDictionaries[0].Source = uri;
+            }
+           
+
 
         }
 

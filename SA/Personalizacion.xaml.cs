@@ -34,5 +34,57 @@ namespace SA
         {
 
         }
+
+        private void btnAplicar_Click(object sender, RoutedEventArgs e)
+        {
+            
+            Enlace enlace = new Enlace();
+            if (rdioAmarillo.IsChecked == true)
+            {
+                enlace.color("Amber");
+                
+            }
+            if (rdioAzul.IsChecked == true)
+            {
+                enlace.color("Indigo");
+            }
+            if (rdioGris.IsChecked == true)
+            {
+                enlace.color("Grey");
+            }
+            if (rdioMorado.IsChecked == true)
+            {
+                enlace.color("DeepPurple");
+            }
+            if (rdioNaranja.IsChecked == true)
+            {
+                enlace.color("DeepOrgange");
+            }
+            if (rdioRojo.IsChecked == true)
+            {
+                enlace.color("Red");
+            }
+            if (rdioRosa.IsChecked == true)
+            {
+                enlace.color("Pink");
+            }
+            if (rdioTurquesa.IsChecked == true)
+            {
+                enlace.color("Teal");
+            }
+            if (rdioVerde.IsChecked == true)
+            {
+                enlace.color("Green");
+            }
+           
+
+
+            
+            
+            
+           
+            
+
+        }
     }
 }

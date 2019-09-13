@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data;
+using System.Data.SQLite;
 
 namespace SA
 {
@@ -23,7 +25,14 @@ namespace SA
         public RegistroNuevos()
         {
             InitializeComponent();
-           
+            enlace = new Enlace();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            adapter = enlace.consulta();
+            DataTable table = new DataTable("ALUMNOS");
+            adapter.Fill(table);
+            dgAlumnos.ItemsSource = table.DefaultView;
+            adapter.Update(table);
+
         }
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
@@ -33,11 +42,27 @@ namespace SA
             this.Close();
         }
 
+
+
         private void btnGuardarUsuario_Click(object sender, RoutedEventArgs e)
         {
             enlace = new Enlace();
-            enlace.insertar();
-            enlace.consulta();
+            //enlace.insertar();
+
+            enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtObservaciones.Text, "foto");
+            MessageBox.Show("Registrado con éxito");
+            limpiar();
         }
+
+        public void limpiar()
+        {
+            txtID.Text = String.Empty;
+            txtNombre.Text = String.Empty;
+            txtGrupo.Text = String.Empty;
+            txtObservaciones.Text = String.Empty;
+            //foto
+        }
+
+       
     }
 }
