@@ -67,7 +67,7 @@
                 Regresar al menú
             </Button>
         <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.Column="1" Grid.RowSpan="6">
-            <DataGrid x:Name="dgAlumnos" AutoGenerateColumns="True" Grid.Column="1" Margin="0,10,27,0" Grid.Row="2" Grid.RowSpan="6"/>
+            <DataGrid x:Name="dgAlumnos" AutoGenerateColumns="True" Grid.Column="1" Margin="0,10,27,0" Grid.Row="2" Grid.RowSpan="6" IsReadOnly="True" SelectionChanged="dgAlumnos_SelectionChanged"/>
         </ScrollViewer>
     </Grid>
    

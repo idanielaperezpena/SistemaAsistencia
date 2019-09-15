@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows;
-using System.Text;
 
 namespace SA
 {
@@ -50,7 +49,24 @@ namespace SA
         {
             string sql = "INSERT INTO ALUMNOS VALUES ('"+id+"','"+nombre+"','"+grupo+"','"+observaciones+"','"+foto+"');";
             comandos(sql);
+            
         }
+
+        public void actualizar(string nombre, string grupo, string observaciones, string foto, string idactual) {
+            string sql = "UPDATE ALUMNOS SET NOMBRE ='"+nombre+"', GRADO_GRUPO ='"+grupo+"', OBSERVACIONES='"+observaciones+"', FOTO='"+foto+"' WHERE ID = '"+idactual+"';";
+            comandos(sql);
+        }
+
+        public int consulta_existencia(string id)
+        {
+            conectar();
+            SQLiteCommand command = new SQLiteCommand("SELECT ID FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            command.ExecuteNonQuery();
+            cerrar();
+            return count;
+        }
+
         public void color(string color)
         {
             string sql="";
@@ -70,15 +86,18 @@ namespace SA
             {
                 conectar();
                 SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                
                 command.ExecuteNonQuery();
                 cerrar();
-                
+                      
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
                 
             }
+
+         
         }
 
         public SQLiteDataAdapter consulta()

@@ -32,7 +32,6 @@ namespace SA
             adapter.Fill(table);
             dgAlumnos.ItemsSource = table.DefaultView;
             adapter.Update(table);
-
         }
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
@@ -42,16 +41,67 @@ namespace SA
             this.Close();
         }
 
-
-
         private void btnGuardarUsuario_Click(object sender, RoutedEventArgs e)
         {
             enlace = new Enlace();
-            //enlace.insertar();
+            DataRowView row = dgAlumnos.SelectedItem as DataRowView;
+            if (!String.IsNullOrWhiteSpace(txtID.Text) || !String.IsNullOrWhiteSpace(txtNombre.Text) || !String.IsNullOrWhiteSpace(txtGrupo.Text))
+            {
+                if (row == null)
+                {
+                    int contador = enlace.consulta_existencia(txtID.Text);
+                    if (contador == 0)
+                    {
+                        enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtObservaciones.Text, "foto");
+                        MessageBox.Show("Alumno registrado con éxito.");
+                        limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show("El ID de alumno ya existe.");
+                    }
+                }
 
-            enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtObservaciones.Text, "foto");
-            MessageBox.Show("Registrado con éxito");
-            limpiar();
+                else
+                {
+                    if (txtID.Text == row["ID"].ToString())
+                    {
+                        enlace.actualizar(txtNombre.Text, txtGrupo.Text, txtObservaciones.Text, "foto", txtID.Text);
+                        MessageBox.Show("Datos de alumno actualizados.");
+                        limpiar();
+                    }
+                    else
+                    {
+                        if (txtNombre.Text == row["NOMBRE"].ToString())
+                        {
+                            MessageBoxResult result = MessageBox.Show("Ya hay un alumno registrado con este nombre, ¿Desea continuar?", "Registro", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                            switch (result)
+                            {
+                                case MessageBoxResult.OK:
+                                    enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtObservaciones.Text, "foto");
+                                    MessageBox.Show("Alumno xx registrado con éxito.");
+                                    limpiar();
+                                    break;
+
+                                case MessageBoxResult.Cancel:
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Hay campos necesarios vacíos");
+            }
+
+            dgAlumnos.ItemsSource = null;
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            adapter = enlace.consulta();
+            DataTable table = new DataTable("ALUMNOS");
+            adapter.Fill(table);
+            dgAlumnos.ItemsSource = table.DefaultView;
+            adapter.Update(table);
         }
 
         public void limpiar()
@@ -63,6 +113,16 @@ namespace SA
             //foto
         }
 
-       
+        private void dgAlumnos_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DataRowView row = dgAlumnos.SelectedItem as DataRowView;
+            if (row != null)
+            {
+                txtID.Text = row["ID"].ToString();
+                txtNombre.Text = row["NOMBRE"].ToString();
+                txtGrupo.Text = row["GRADO_GRUPO"].ToString();
+                txtObservaciones.Text = row["OBSERVACIONES"].ToString();
+            } 
+        }
     }
 }
