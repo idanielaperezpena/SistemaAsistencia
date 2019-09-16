@@ -26,12 +26,14 @@ namespace SA
         {
             InitializeComponent();
             enlace = new Enlace();
+            enlace.conectar();
             SQLiteDataAdapter adapter = new SQLiteDataAdapter();
             adapter = enlace.consulta();
             DataTable table = new DataTable("ALUMNOS");
             adapter.Fill(table);
             dgAlumnos.ItemsSource = table.DefaultView;
             adapter.Update(table);
+            enlace.cerrar();
         }
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
@@ -43,7 +45,8 @@ namespace SA
 
         private void btnGuardarUsuario_Click(object sender, RoutedEventArgs e)
         {
-            enlace = new Enlace();
+            // enlace = new Enlace(); ya tenias tu enlace global e inicializada en el constructor
+            enlace.conectar();
             DataRowView row = dgAlumnos.SelectedItem as DataRowView;
             if (!String.IsNullOrWhiteSpace(txtID.Text) || !String.IsNullOrWhiteSpace(txtNombre.Text) || !String.IsNullOrWhiteSpace(txtGrupo.Text))
             {
@@ -89,6 +92,7 @@ namespace SA
                         }
                     }
                 }
+                
             }
             else
             {
@@ -102,6 +106,7 @@ namespace SA
             adapter.Fill(table);
             dgAlumnos.ItemsSource = table.DefaultView;
             adapter.Update(table);
+            enlace.cerrar();
         }
 
         public void limpiar()
@@ -124,5 +129,13 @@ namespace SA
                 txtObservaciones.Text = row["OBSERVACIONES"].ToString();
             } 
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //  TODO DANN
+            //Environment.Exit(1);
+        }
+
+        
     }
 }

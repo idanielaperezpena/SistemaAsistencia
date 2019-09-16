@@ -15,14 +15,20 @@
         FontFamily="{DynamicResource MaterialDesignFont}" 
         HorizontalAlignment="Center" 
         VerticalAlignment="Top"
-        WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="700" Width="1000"
+        WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="700" Width="1000" Closing="WInicio_Closing"
         >
     <Window.TaskbarItemInfo>
         <TaskbarItemInfo/>
     </Window.TaskbarItemInfo>
     <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
-       <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+        <Grid ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
@@ -30,10 +36,11 @@
                 <ColumnDefinition Width="348"/>
                 <ColumnDefinition Width="165*"/>
             </Grid.ColumnDefinitions>
-            <materialDesign:Card Padding="32" Margin="16,16,16,0" Grid.ColumnSpan="3" Height="88">
+            <materialDesign:Card Background="{DynamicResource PrimaryHueDarkBrush}"
+  Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}" Padding="32" Margin="16,16,16,0" Grid.ColumnSpan="3" Height="88" Grid.RowSpan="2">
                 <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Menú - Bienvenido</TextBlock>
             </materialDesign:Card>
-            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="62,131,0,0">
+            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="62,131,0,0" Grid.Row="1" Grid.RowSpan="3">
                 <materialDesign:Flipper.FrontContent>
                     <Grid Height="256" Width="200">
                         <Grid.RowDefinitions>
@@ -53,7 +60,7 @@
                 </materialDesign:Flipper.FrontContent>
 
             </materialDesign:Flipper>
-            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="68,131,78,0" HorizontalAlignment="Center" Grid.Column="1">
+            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="68,131,78,0" HorizontalAlignment="Center" Grid.Column="1" Grid.Row="1" Grid.RowSpan="3">
                 <materialDesign:Flipper.FrontContent>
                     <Grid Height="256" Width="200">
                         <Grid.RowDefinitions>
@@ -73,7 +80,7 @@
                 </materialDesign:Flipper.FrontContent>
 
             </materialDesign:Flipper>
-            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="0,131,60,0" HorizontalAlignment="Right" Grid.Column="2">
+            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="0,131,60,0" HorizontalAlignment="Right" Grid.Column="2" Grid.Row="1" Grid.RowSpan="3">
                 <materialDesign:Flipper.FrontContent>
                     <Grid Height="256" Width="200">
                         <Grid.RowDefinitions>
@@ -93,7 +100,7 @@
                 </materialDesign:Flipper.FrontContent>
 
             </materialDesign:Flipper>
-            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Height="295" Width="202" Margin="0,451,78,0" HorizontalAlignment="Right" Grid.Column="1" Grid.Row="1">
+            <materialDesign:Flipper Style="{StaticResource MaterialDesignCardFlipper}" Margin="73,0" HorizontalAlignment="Stretch" Grid.Column="1" Grid.Row="4" VerticalAlignment="Stretch" Grid.RowSpan="3">
                 <materialDesign:Flipper.FrontContent>
                     <Grid Height="256" Width="200">
                         <Grid.RowDefinitions>
@@ -113,12 +120,12 @@
                 </materialDesign:Flipper.FrontContent>
 
             </materialDesign:Flipper>
-       </Grid>
+        </Grid>
     </ScrollViewer>
 
 
 
-    
-    
+
+
 
 </Window>

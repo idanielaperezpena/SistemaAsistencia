@@ -59,36 +59,43 @@ namespace SA
 
         public int consulta_existencia(string id)
         {
-            conectar();
+           
             SQLiteCommand command = new SQLiteCommand("SELECT ID FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);
             int count = Convert.ToInt32(command.ExecuteScalar());
             command.ExecuteNonQuery();
-            cerrar();
+            
             return count;
         }
 
-        public void color(string color)
+        public void color(string color, bool tipo)
         {
             string sql="";
-            String[] s = new string[2];
-            s = consultaPersonalizacion();
-            sql = !string.IsNullOrEmpty(s[1])
-                ? "INSERT INTO PERSONALIZACION VALUES(1,'','" + color + "');"
-                : "UPDATE PERSONALIZACION SET COLOR='" + color + "' WHERE ID=1;";
+            
+            
+            if(!tipo)
+            {
+                sql= "UPDATE PERSONALIZACION SET COLOR='" + color + "' WHERE ID=1;";
+            }
+            else
+            {
+                sql = "INSERT INTO PERSONALIZACION VALUES(1,'','" + color + "');";
+            }
+                 
             comandos(sql);
             Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor."+color+".xaml");
             Application.Current.Resources.MergedDictionaries[0].Source = uri;
+           
         }
 
         public void comandos(string sql)
         {
             try
             {
-                conectar();
+                
                 SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
                 
                 command.ExecuteNonQuery();
-                cerrar();
+               
                       
             }
             catch (Exception e)
@@ -102,16 +109,16 @@ namespace SA
 
         public SQLiteDataAdapter consulta()
         {
-            conectar();
+            
             SQLiteCommand command = new SQLiteCommand("SELECT * FROM ALUMNOS;", m_dbConnection);
             command.ExecuteNonQuery();
             SQLiteDataAdapter dataadp = new SQLiteDataAdapter(command); 
-            cerrar();
+            
             return dataadp;
         }
         public string[] consultaPersonalizacion()
         {
-            conectar();
+            
             SQLiteCommand command = new SQLiteCommand("SELECT * FROM Personalizacion;", m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             string [] res= new string[2];
@@ -121,7 +128,7 @@ namespace SA
                 res[1] = reader[2].ToString();
             }
             
-            cerrar();
+           
             return res;
         }
     }

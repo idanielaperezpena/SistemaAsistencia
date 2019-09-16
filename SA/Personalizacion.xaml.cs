@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace SA
 {
@@ -30,59 +32,117 @@ namespace SA
             this.Hide();
         }
 
-        private void CheckBox_Checked(object sender, RoutedEventArgs e)
-        {
-
-        }
+        
 
         private void btnAplicar_Click(object sender, RoutedEventArgs e)
         {
-            
+            bool tipo=false; //false update true insert
             Enlace enlace = new Enlace();
+            enlace.conectar();
+            String[] s = new string[2];
+            s=enlace.consultaPersonalizacion();
+           
+            if (!string.IsNullOrEmpty(s[1]))
+            {
+                tipo = false;
+            }
+            else
+            {
+                tipo = true;
+            }
             if (rdioAmarillo.IsChecked == true)
             {
-                enlace.color("Amber");
+                enlace.color("Amber", tipo);
                 
             }
             if (rdioAzul.IsChecked == true)
             {
-                enlace.color("Indigo");
+                enlace.color("Indigo", tipo);
             }
             if (rdioGris.IsChecked == true)
             {
-                enlace.color("Grey");
+                enlace.color("Grey", tipo);
             }
             if (rdioMorado.IsChecked == true)
             {
-                enlace.color("DeepPurple");
+                enlace.color("DeepPurple", tipo);
             }
             if (rdioNaranja.IsChecked == true)
             {
-                enlace.color("DeepOrgange");
+                enlace.color("DeepOrange", tipo);
             }
             if (rdioRojo.IsChecked == true)
             {
-                enlace.color("Red");
+                enlace.color("Red", tipo);
             }
             if (rdioRosa.IsChecked == true)
             {
-                enlace.color("Pink");
+                enlace.color("Pink", tipo);
             }
             if (rdioTurquesa.IsChecked == true)
             {
-                enlace.color("Teal");
+                enlace.color("Teal", tipo);
             }
             if (rdioVerde.IsChecked == true)
             {
-                enlace.color("Green");
+                enlace.color("Green", tipo);
             }
-           
+            enlace.cerrar();
+            if (imgFondo.Source != null)
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgFondo.Source));
+                using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory+"Fondo.jpeg", FileMode.Create))
+                    encoder.Save(stream);
+            }
+                     
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            //TODO DANN
+            //Environment.Exit(1);
+        }
+
+        private void btnImagen_Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
 
-            
-            
-            
+
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+
+
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+
+
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                txtBlckImagen.Text = filename;
+                //guardando la imagen
+                
+                BitmapImage b = new BitmapImage();
+                b.BeginInit();
+                b.UriSource = new Uri(filename);
+                
+               
+                b.EndInit();
+                imgFondo.Source = b;
+              
+
+               // byte[] img = Convert.FromBase64String();
+                //System.IO.File.WriteAllBytes("",img);
+            }
+
            
+            
             
 
         }

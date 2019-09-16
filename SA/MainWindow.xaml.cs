@@ -29,14 +29,17 @@ namespace SA
         {
             InitializeComponent();
             Enlace enlace = new Enlace();
+            enlace.conectar();
             enlace.tablas();
             String[] s = new string[2];
             s = enlace.consultaPersonalizacion();
+            enlace.cerrar();
             if (!string.IsNullOrEmpty(s[1]))
             {
                 Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + s[1] + ".xaml");
                 Application.Current.Resources.MergedDictionaries[0].Source = uri;
             }
+
            
 
 
@@ -72,6 +75,11 @@ namespace SA
             ps = new Personalizacion();
             ps.Show();
             this.Hide();
+        }
+
+        private void WInicio_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            System.Environment.Exit(1);
         }
     }
 }
