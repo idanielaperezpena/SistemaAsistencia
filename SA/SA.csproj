@@ -91,6 +91,10 @@
     <Compile Include="RegistroNuevos.xaml.cs">
       <DependentUpon>RegistroNuevos.xaml</DependentUpon>
     </Compile>
+    <Page Include="FlowDocument1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ListadoES.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

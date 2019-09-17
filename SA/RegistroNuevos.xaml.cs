@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Data;
 using System.Data.SQLite;
 
+
 namespace SA
 {
     /// <summary>
@@ -134,8 +135,6 @@ namespace SA
         {
             //  TODO DANN
             //Environment.Exit(1);
-        }
-
-        
+        }     
     }
 }
