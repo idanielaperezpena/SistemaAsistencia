@@ -126,3 +126,4 @@ C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.csproj.CopyComplete
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.exe
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.pdb
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\FlowDocument1.baml
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\FlowDocument1.baml

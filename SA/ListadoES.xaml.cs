@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,19 +21,70 @@ namespace SA
     /// </summary>
     public partial class ListadoES : Window
     {
+
+        Enlace enlace;
+        DataTable table;
         public ListadoES()
         {
             InitializeComponent();
+            //combo grupo
+            enlace = new Enlace();
+            FillCombo();
+            FillDG();
+            
+        }
+        private void FillDG()
+        {
+            enlace.conectar();
+            enlace.conectar();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            adapter = enlace.consulta_lista_asistencia();
+            enlace.cerrar();
+            table = new DataTable();
+            adapter.Fill(table);
+            dgListado.ItemsSource = table.DefaultView;
+
+
+        }
+
+
+        private void FillCombo()
+        {
+           
+            enlace.conectar();
+            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
+            adapter = enlace.combo();
+            enlace.cerrar();
+            DataTable table = new DataTable();
+
+            adapter.Fill(table);
+            
+           
+            cmbGrado.DisplayMemberPath = "GRADO_GRUPO";
+            cmbGrado.SelectedValuePath = "GRADO_GRUPO";
+            cmbGrado.ItemsSource = table.DefaultView;
+
         }
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
+            if(cmbGrado.SelectedValue == null)
+            {
+                MessageBox.Show("Vacio");
+           
+            }
+            else
+            {
+                MessageBox.Show(cmbGrado.SelectedValue.ToString());
+            }
             
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
 
         }
+
+        
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
@@ -149,6 +201,12 @@ namespace SA
             section.Blocks.Add(table);
             doc.Blocks.Add(table);
             return doc;
+        }
+
+        private void cmbGrado_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            table.DefaultView.RowFilter = $"GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%'";
         }
     }
 }

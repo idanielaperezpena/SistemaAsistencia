@@ -49,7 +49,7 @@
             <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}" Text="Listado de Entradas y Salidas"></TextBlock>
         </materialDesign:Card>
         <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Grado y Grupo:" Grid.Row="2" Margin="20,8,66,1" Grid.ColumnSpan="2"/>
-        <ComboBox x:Name="cmbGrado" materialDesign:HintAssist.Hint="Grado y Grupo" MinWidth="72" Margin="35,6,0,0" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="2" Padding="0" UseLayoutRounding="True" RenderTransformOrigin="0.496,0.63" Grid.Column="1" MinHeight="20" VerticalContentAlignment="Bottom" HorizontalAlignment="Left" Width="164" Height="23"/>
+        <ComboBox x:Name="cmbGrado" materialDesign:HintAssist.Hint="Grado y Grupo" MinWidth="72" Margin="35,6,1,0" VerticalAlignment="Top" Grid.Row="2" Grid.ColumnSpan="2" Padding="0" UseLayoutRounding="True" RenderTransformOrigin="0.496,0.63" Grid.Column="1" MinHeight="20" VerticalContentAlignment="Bottom" Height="23" SelectionChanged="cmbGrado_SelectionChanged"/>
         <TextBlock Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Intervalo:" Margin="42,8,61,1" Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2"/>
         <ComboBox x:Name="cmbIntervalo" materialDesign:HintAssist.Hint="Seleccione uno..." MinWidth="72" Margin="7,6,28,0" VerticalAlignment="Top" Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2" Padding="0" VerticalContentAlignment="Bottom" MinHeight="20">
             <Button Content="Este mes"/>
