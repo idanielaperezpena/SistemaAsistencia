@@ -10,6 +10,9 @@ namespace SA
 {
     class Enlace
     {
+
+        //codigo de conexion y creación de la base de datos
+
         SQLiteConnection m_dbConnection;
 
         public Enlace()
@@ -20,30 +23,45 @@ namespace SA
                 Console.WriteLine("BD creada");
             }       
         }
-
+        //EJECUTA COMANDOS QUE NO RETORNAN NINGUN VALOR
+        public void comandos(string sql)
+        {
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+                command.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.ToString());
+            }
+        }
+        //CONECTA
         public void conectar()
         {
             m_dbConnection = new SQLiteConnection("Data Source=dbAsistencia.sqlite; Version=3;");
             m_dbConnection.Open();
         }
-
+        //CIERRA
         public void cerrar()
         {
             m_dbConnection.Close();
         }
-
+        //CREA LAS TABLAS
         public void tablas()
         {
             string sqlAlumnos = "CREATE TABLE IF NOT EXISTS ALUMNOS(ID VARCHAR(10), NOMBRE VARCHAR(100), GRADO_GRUPO VARCHAR(10), OBSERVACIONES VARCHAR(255), FOTO VARCHAR(255));";
             comandos(sqlAlumnos);
             Console.WriteLine("Tabla alumnos existe");
-            string sqlAsistencia = "CREATE TABLE IF NOT EXISTS Asistencia(ID INT, ID_ALUMNO VARCHAR(10), FECHA varchar(50), ENTRADA VARCHAR(255), SALIDA VARCHAR(255));";
+            string sqlAsistencia = "CREATE TABLE IF NOT EXISTS Asistencia(ID INTEGER PRIMARY KEY AUTOINCREMENT, ID_ALUMNO VARCHAR(10), FECHA varchar(50), ENTRADA VARCHAR(255), SALIDA VARCHAR(255));";
             comandos(sqlAsistencia);
             Console.WriteLine("Tabla asistencia existe");
             string sqlPersonalizacion = "CREATE TABLE IF NOT EXISTS PERSONALIZACION(ID INTEGER , RUTA_FONDO VARCHAR(255), COLOR VARCHAR(255));";
             comandos(sqlPersonalizacion);
             Console.WriteLine("Tabla  personalizacion existe ");
         }
+
+        //operaciones para el registro de alumnos
 
         public void insertar(string id, string nombre, string grupo, string observaciones, string foto)
         {
@@ -58,20 +76,27 @@ namespace SA
         }
 
         public int consulta_existencia(string id)
-        {
-           
+        {         
             SQLiteCommand command = new SQLiteCommand("SELECT ID FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);
             int count = Convert.ToInt32(command.ExecuteScalar());
-            command.ExecuteNonQuery();
-            
+            command.ExecuteNonQuery();          
             return count;
         }
 
+        public SQLiteDataAdapter consulta()
+        {
+
+            SQLiteCommand command = new SQLiteCommand("SELECT * FROM ALUMNOS;", m_dbConnection);
+            command.ExecuteNonQuery();
+            SQLiteDataAdapter dataadp = new SQLiteDataAdapter(command);
+            return dataadp;
+        }
+
+        //operaciones para personalización
+
         public void color(string color, bool tipo)
         {
-            string sql="";
-            
-            
+            string sql="";                     
             if(!tipo)
             {
                 sql= "UPDATE PERSONALIZACION SET COLOR='" + color + "' WHERE ID=1;";
@@ -79,46 +104,14 @@ namespace SA
             else
             {
                 sql = "INSERT INTO PERSONALIZACION VALUES(1,'','" + color + "');";
-            }
-                 
+            }                
             comandos(sql);
             Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor."+color+".xaml");
-            Application.Current.Resources.MergedDictionaries[0].Source = uri;
+            Application.Current.Resources.MergedDictionaries[0].Source = uri;          
+        }
            
-        }
-
-        public void comandos(string sql)
-        {
-            try
-            {
-                
-                SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
-                
-                command.ExecuteNonQuery();
-               
-                      
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
-                
-            }
-
-         
-        }
-
-        public SQLiteDataAdapter consulta()
-        {
-            
-            SQLiteCommand command = new SQLiteCommand("SELECT * FROM ALUMNOS;", m_dbConnection);
-            command.ExecuteNonQuery();
-            SQLiteDataAdapter dataadp = new SQLiteDataAdapter(command); 
-            
-            return dataadp;
-        }
         public string[] consultaPersonalizacion()
-        {
-            
+        {         
             SQLiteCommand command = new SQLiteCommand("SELECT * FROM Personalizacion;", m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             string [] res= new string[2];
@@ -126,10 +119,78 @@ namespace SA
             {
                 res[0] = reader[1].ToString();
                 res[1] = reader[2].ToString();
-            }
-            
-           
+            }       
             return res;
         }
+
+        //operaciones de registro de asistencia de alumnos
+
+        public void registro_asistencia(string id_alumno, bool tipo)
+        {
+            DateTime fechahora = DateTime.Now;
+            string fecha = fechahora.ToString("dd-MM-yyyy");
+            string hora = fechahora.ToString("HH:mm"); //con segundos?
+            string sql = "";
+            if (tipo==false)
+            {
+                sql = "INSERT INTO Asistencia VALUES (NULL,'" + id_alumno + "','" + fecha + "','" + hora + "','');";
+               
+            }
+            else
+            {
+                sql = "UPDATE Asistencia SET SALIDA='" + hora + "' where id_alumno = '" + id_alumno + "';";
+                
+            }
+            comandos(sql);
+
+        }
+               
+        public int consultar_asistencia(string id_alumno)
+        {
+            DateTime fechahora = DateTime.Now;
+            string fecha = fechahora.ToString("dd-MM-yyyy");
+            SQLiteCommand command = new SQLiteCommand("SELECT COUNT(ID_ALUMNO) FROM Asistencia WHERE ID_ALUMNO = '" + id_alumno + "' AND FECHA = '"+fecha+"' ;", m_dbConnection);
+            int count = Convert.ToInt32(command.ExecuteScalar());
+            command.ExecuteNonQuery();
+            return count;
+        }
+
+        public String[] consulta_alumno(string ID)
+        {
+            string[] resultado = new String[6]; //6campos
+            SQLiteCommand command = new SQLiteCommand("SELECT * FROM ALUMNOS where ID = '"+ID+"';", m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                resultado[0] =reader["NOMBRE"].ToString();
+                resultado[1] = reader["GRADO_GRUPO"].ToString();
+                resultado[3] = reader["OBSERVACIONES"].ToString();
+            }
+            
+            return resultado;   
+        }
+
+        //operaciones para la lista de asistencias
+
+        public SQLiteDataAdapter combo()
+        {
+            SQLiteCommand comando = new SQLiteCommand("SELECT DISTINCT GRADO_GRUPO FROM ALUMNOS", m_dbConnection);
+            comando.ExecuteNonQuery();
+            SQLiteDataAdapter dataadp = new SQLiteDataAdapter(comando);
+            
+            return dataadp;
+        }
+
+        public SQLiteDataAdapter consulta_lista_asistencia()
+        {
+
+            SQLiteCommand command = new SQLiteCommand("select ID_ALUMNO, Alumnos.NOMBRE,Alumnos.GRADO_GRUPO, FECHA, ENTRADA, SALIDA from Asistencia inner join alumnos on ALUMNOS.ID = Asistencia.ID_ALUMNO; ", m_dbConnection);
+            command.ExecuteNonQuery();
+            SQLiteDataAdapter dataadp = new SQLiteDataAdapter(command);
+            return dataadp;
+        }
+
+
+
     }
 }

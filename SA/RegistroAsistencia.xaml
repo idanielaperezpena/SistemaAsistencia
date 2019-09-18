@@ -14,7 +14,7 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         FontFamily="{DynamicResource MaterialDesignFont}" HorizontalAlignment="Center" VerticalAlignment="Top" WindowStartupLocation="Manual" WindowState="Maximized" ResizeMode="CanMinimize" Closing="Window_Closing">
-   
+
     <ScrollViewer Margin="0" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
@@ -50,20 +50,18 @@
                     <Image Source="users/defaultUser.png" Stretch="UniformToFill" Margin="46,0,48,0" MaxWidth="250" MaxHeight="250" RenderTransformOrigin="0.506,0.365" />
 
                     <StackPanel Grid.Row="1" Margin="0,11,0,0">
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignTitleTextBlock}" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtID" ><Run Text="ID"/><InlineUIContainer>
-                                <TextBox x:Name="txtID" Height="30" TextWrapping="Wrap" Width="180" CharacterCasing="Upper" MaxLines="1" MaxLength="10"/>
-                            </InlineUIContainer></TextBlock>
-                        <TextBlock FontWeight="Bold"  Style="{StaticResource MaterialDesignDisplay2TextBlock}"
+                        <TextBox x:Name="txtID" Height="30" TextWrapping="Wrap" CharacterCasing="Upper" MaxLines="1" MaxLength="10" KeyDown="txtID_KeyDown" TextAlignment="Center" />
+                        <TextBlock x:Name="txbID" FontWeight="Bold"  Style="{StaticResource MaterialDesignDisplay2TextBlock}"
+                            Text="ID" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre"/>
+                        <TextBlock x:Name="txbNombre" FontWeight="Bold"  Style="{StaticResource MaterialDesignDisplay2TextBlock}"
                                Text="Nombre" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre"/>
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Text="Grado y Grupo" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtGradoGrupo"/>
-                        <TextBlock TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Observaciones" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtObservaciones"/>
+                        <TextBlock x:Name="txbGradoGrupo" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Text="Grado y Grupo" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtGradoGrupo"/>
+                        <TextBlock x:Name="txbObservaciones" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Observaciones" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtObservaciones"/>
                     </StackPanel>
 
                 </Grid>
             </materialDesign:Card>
             <Button x:Name="btnRegresarMenu" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="Regresar al menú" Grid.ColumnSpan="2" Grid.Column="4" Margin="93,12,19,19" Grid.Row="7" Click="btnRegresarMenu_Click" />
-
-
         </Grid>
     </ScrollViewer>
 </Window>

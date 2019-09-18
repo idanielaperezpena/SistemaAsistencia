@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Data.SQLite;
 
 namespace SA
 {
@@ -22,10 +23,14 @@ namespace SA
     public partial class RegistroAsistencia : Window
     {
         System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
+        Enlace enlace;
 
         public RegistroAsistencia()
         {
             InitializeComponent();
+            enlace = new Enlace();
+           
+
             Image image = new Image();
             try
             {
@@ -71,6 +76,38 @@ namespace SA
         {
             //todo Dann
            // Environment.Exit(1);
+        }
+
+        
+
+
+
+        private void txtID_KeyDown(object sender, KeyEventArgs e)
+        {
+                      
+            if (e.Key == Key.Enter)
+            {
+                enlace.conectar();
+                String[] resultado = new string[6];
+                resultado = enlace.consulta_alumno(txtID.Text);
+                if (resultado[0] != null)
+                {
+                    bool contador = Convert.ToBoolean(enlace.consultar_asistencia(txtID.Text));
+                    enlace.registro_asistencia(txtID.Text, contador);
+                    txbID.Text = resultado[0];
+                    txbNombre.Text = resultado[1];
+                    txbGradoGrupo.Text = resultado[2];
+                    txbObservaciones.Text = resultado[3];
+                    
+                   
+                }
+                else
+                {
+                    MessageBox.Show("Alumno no encontrado", "No encontrado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                }
+                txtID.Clear();
+                enlace.cerrar();
+            }
         }
     }
 }
