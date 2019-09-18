@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
 using System.Data.SQLite;
-
+using System.IO;
 
 namespace SA
 {
@@ -47,6 +47,7 @@ namespace SA
         private void btnGuardarUsuario_Click(object sender, RoutedEventArgs e)
         {
             // enlace = new Enlace(); ya tenias tu enlace global e inicializada en el constructor
+            
             enlace.conectar();
             DataRowView row = dgAlumnos.SelectedItem as DataRowView;
             if (!String.IsNullOrWhiteSpace(txtID.Text) || !String.IsNullOrWhiteSpace(txtNombre.Text) || !String.IsNullOrWhiteSpace(txtGrupo.Text))
@@ -56,7 +57,9 @@ namespace SA
                     int contador = enlace.consulta_existencia(txtID.Text);
                     if (contador == 0)
                     {
+
                         enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtObservaciones.Text, "foto");
+                        
                         MessageBox.Show("Alumno registrado con éxito.");
                         limpiar();
                     }
@@ -109,7 +112,16 @@ namespace SA
             adapter.Update(table);
             enlace.cerrar();
         }
-
+        private void imagen(string id)
+        {
+            if (imgFoto.Source != null)
+            {
+                var encoder = new PngBitmapEncoder();
+                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgFoto.Source));
+                using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + id+".jpeg", FileMode.Create))
+                    encoder.Save(stream);
+            }
+        }
         public void limpiar()
         {
             txtID.Text = String.Empty;
@@ -135,6 +147,34 @@ namespace SA
         {
             //  TODO DANN
             //Environment.Exit(1);
-        }     
+        }
+
+        private void btnImagen_Click(object sender, RoutedEventArgs e)
+        {
+            // Create OpenFileDialog 
+            Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+            
+            // Set filter for file extension and default file extension 
+            dlg.DefaultExt = ".jpg";
+            dlg.Filter = "JPEG Files (*.jpeg)|*.jpeg|PNG Files (*.png)|*.png|JPG Files (*.jpg)|*.jpg|GIF Files (*.gif)|*.gif";
+            
+            // Display OpenFileDialog by calling ShowDialog method 
+            Nullable<bool> result = dlg.ShowDialog();
+            
+            // Get the selected file name and display in a TextBox 
+            if (result == true)
+            {
+                // Open document 
+                string filename = dlg.FileName;
+                txBlckRutaImagen.Text = filename;
+                //guardando la imagen
+                BitmapImage b = new BitmapImage();
+                b.BeginInit();
+                b.UriSource = new Uri(filename);
+                b.EndInit();
+                imgFoto.Source = b;
+                
+            }
+        }
     }
 }
