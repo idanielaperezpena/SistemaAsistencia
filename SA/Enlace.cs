@@ -50,7 +50,7 @@ namespace SA
         //CREA LAS TABLAS
         public void tablas()
         {
-            string sqlAlumnos = "CREATE TABLE IF NOT EXISTS ALUMNOS(ID VARCHAR(10), NOMBRE VARCHAR(100), GRADO_GRUPO VARCHAR(10), OBSERVACIONES VARCHAR(255), FOTO VARCHAR(255));";
+            string sqlAlumnos = "CREATE TABLE IF NOT EXISTS ALUMNOS(ID VARCHAR(10), NOMBRE VARCHAR(100), GRADO_GRUPO VARCHAR(10),TUTOR VARCHAR(100), TELEFONO VARCHAR(10), OBSERVACIONES VARCHAR(255), FOTO VARCHAR(255));";
             comandos(sqlAlumnos);
             Console.WriteLine("Tabla alumnos existe");
             string sqlAsistencia = "CREATE TABLE IF NOT EXISTS Asistencia(ID INTEGER PRIMARY KEY AUTOINCREMENT, ID_ALUMNO VARCHAR(10), FECHA varchar(50), ENTRADA VARCHAR(255), SALIDA VARCHAR(255));";
@@ -63,15 +63,15 @@ namespace SA
 
         //operaciones para el registro de alumnos
 
-        public void insertar(string id, string nombre, string grupo, string observaciones, string foto)
+        public void insertar(string id, string nombre, string grupo, string tutor, string telefono, string observaciones, string foto)
         {
-            string sql = "INSERT INTO ALUMNOS VALUES ('"+id+"','"+nombre+"','"+grupo+"','"+observaciones+"','"+foto+"');";
+            string sql = "INSERT INTO ALUMNOS VALUES ('"+id+"','"+nombre+"','"+grupo+"','"+tutor+"','"+telefono+"','"+observaciones+"','"+foto+"');";
             comandos(sql);
             
         }
 
-        public void actualizar(string nombre, string grupo, string observaciones, string foto, string idactual) {
-            string sql = "UPDATE ALUMNOS SET NOMBRE ='"+nombre+"', GRADO_GRUPO ='"+grupo+"', OBSERVACIONES='"+observaciones+"', FOTO='"+foto+"' WHERE ID = '"+idactual+"';";
+        public void actualizar(string nombre, string grupo, string tutor, string telefono, string observaciones, string foto, string idactual) {
+            string sql = "UPDATE ALUMNOS SET NOMBRE ='"+nombre+"', GRADO_GRUPO ='"+grupo+"',TUTOR='"+tutor+"', TELEFONO='"+telefono+"', OBSERVACIONES='"+observaciones+"', FOTO='"+foto+"' WHERE ID = '"+idactual+"';";
             comandos(sql);
         }
 
@@ -162,9 +162,10 @@ namespace SA
             SQLiteDataReader reader = command.ExecuteReader();
             if (reader.Read())
             {
-                resultado[0] =reader["NOMBRE"].ToString();
-                resultado[1] = reader["GRADO_GRUPO"].ToString();
-                resultado[3] = reader["OBSERVACIONES"].ToString();
+                for (int i=0; i<6; i++)
+                {
+                    resultado[i] = reader[i].ToString();
+                }
             }
             
             return resultado;   
@@ -184,7 +185,7 @@ namespace SA
         public SQLiteDataAdapter consulta_lista_asistencia()
         {
 
-            SQLiteCommand command = new SQLiteCommand("select ID_ALUMNO, Alumnos.NOMBRE,Alumnos.GRADO_GRUPO, FECHA, ENTRADA, SALIDA from Asistencia inner join alumnos on ALUMNOS.ID = Asistencia.ID_ALUMNO; ", m_dbConnection);
+            SQLiteCommand command = new SQLiteCommand("select Asistencia.ID, ID_ALUMNO, Alumnos.NOMBRE,Alumnos.GRADO_GRUPO, FECHA, ENTRADA, SALIDA from Asistencia inner join alumnos on ALUMNOS.ID = Asistencia.ID_ALUMNO; ", m_dbConnection);
             command.ExecuteNonQuery();
             SQLiteDataAdapter dataadp = new SQLiteDataAdapter(command);
             return dataadp;
