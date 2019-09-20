@@ -42,6 +42,7 @@ namespace SA
             
             table = new DataTable("LISTADO");
             adapter.Fill(table);
+            
             dgListado.ItemsSource = table.DefaultView;
             adapter.Update(table);
             enlace.cerrar();
@@ -68,15 +69,7 @@ namespace SA
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
-            if(cmbGrado.SelectedValue == null)
-            {
-                MessageBox.Show("Vacio");
-           
-            }
-            else
-            {
-                MessageBox.Show(cmbGrado.SelectedValue.ToString());
-            }
+            
             
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
@@ -154,9 +147,19 @@ namespace SA
             currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Listado de Asistencia"))));
             // and set the row to span all  columns.
             currentRow.Cells[0].ColumnSpan = n;
-            // Add the second (header) row.
+            //Segunda fila, grupo e intervalo de fecha
+
             table1.RowGroups[0].Rows.Add(new TableRow());
             currentRow = table1.RowGroups[0].Rows[1];
+            currentRow.FontSize = 14;
+            currentRow.FontWeight = FontWeights.Bold;
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Grupo:"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Fecha:"))));
+            currentRow.Cells[0].ColumnSpan = n/2;
+            currentRow.Cells[1].ColumnSpan = n / 2;
+            // tercera fila, encabezados
+            table1.RowGroups[0].Rows.Add(new TableRow());
+            currentRow = table1.RowGroups[0].Rows[2];
 
             // Global formatting for the header row.
             currentRow.FontSize = 14;
@@ -167,12 +170,18 @@ namespace SA
             currentRow.Cells.Add(new TableCell(new Paragraph(new Run("No."))));
             currentRow.Cells.Add(new TableCell(new Paragraph(new Run("ID Alumno"))));
             currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Nombre"))));
-            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Grado y Grupo"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Grupo"))));
             currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Fecha"))));
-            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Hora de Entrada"))));
-            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Hora de Salida"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Entrada"))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Salida"))));
 
-            int filas = 1;
+            for (int a = 0; a < currentRow.Cells.Count; a++)
+            {
+                
+                currentRow.Cells[a].Padding = new Thickness(4, 4, 4, 4);
+            }
+
+            int filas = 2;
             //contenido
             foreach (DataRowView r in dgListado.ItemsSource)
             {
@@ -216,8 +225,88 @@ namespace SA
 
         private void cmbGrado_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            filtrar();
             
-            table.DefaultView.RowFilter = $"GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%'";
         }
+
+        private void cmbIntervalo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            DateTime fecha =DateTime.Now; 
+
+            switch (cmbIntervalo.SelectedIndex)
+            {
+                case 0:
+
+                    datepkInicio.SelectedDate = fecha;
+                    datepkFin.SelectedDate = fecha;
+                    break;
+                case 1:
+                    double quitar;
+                    quitar = Convert.ToDouble(fecha.DayOfWeek);
+                    datepkInicio.SelectedDate = fecha.AddDays(-quitar+1);
+                    datepkFin.SelectedDate = fecha.AddDays(7 - quitar);
+                    break;
+
+                case 2:
+                    string fec = "01" +"/"+ DateTime.Now.Month.ToString("00") + "/"+ DateTime.Now.Year.ToString();
+                    fecha = DateTime.Parse(fec);
+                    datepkInicio.SelectedDate = fecha;
+                    fecha= fecha.AddMonths(1);
+                    fecha= fecha.AddDays(-1);
+                    datepkFin.SelectedDate = fecha;
+                    break;
+                default:
+                    datepkInicio.SelectedDate = fecha;
+                    datepkFin.SelectedDate = fecha;
+                    break;
+                    
+            }
+        }
+
+        private void SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            
+            filtrar();
+        }
+        private void filtrar()
+        {
+            table.DefaultView.RowFilter = null;
+            if (datepkInicio.SelectedDate == null && datepkFin.SelectedDate == null && cmbGrado.SelectedValue != null)
+            {
+                table.DefaultView.RowFilter = $"GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%'";
+               
+            }
+            if(datepkInicio.SelectedDate != null && datepkFin.SelectedDate != null && cmbGrado.SelectedValue != null)
+            {
+                if (datepkInicio.SelectedDate == datepkFin.SelectedDate) //si las fechas de inicio y fin son iguales.
+                {
+                    table.DefaultView.RowFilter = $"CONVERT(FECHA,'System.DateTime') = '#{datepkInicio.SelectedDate}#' AND GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%' ";
+                    MessageBox.Show("entro al de iguales");
+                }
+                else //sino son iguales
+                {
+                    table.DefaultView.RowFilter = $"GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%' AND CONVERT(FECHA,'System.DateTime') >='#{datepkInicio.SelectedDate}#' AND CONVERT(FECHA,'System.DateTime') <= '#{datepkFin.SelectedDate}#'";
+
+                }
+            }
+            if (datepkInicio.SelectedDate != null && datepkFin.SelectedDate != null && cmbGrado.SelectedValue == null)
+            {
+
+                if (datepkInicio.SelectedDate == datepkFin.SelectedDate) //si las fechas de inicio y fin son iguales.
+                {
+                    table.DefaultView.RowFilter = $"CONVERT(FECHA,'System.DateTime') = '#{datepkInicio.SelectedDate}#' ";
+                    MessageBox.Show("entro al de iguales2");
+                }
+                else //sino son iguales
+                {
+                    table.DefaultView.RowFilter = $"CONVERT(FECHA,'System.DateTime') >='#{datepkInicio.SelectedDate}#' AND CONVERT(FECHA,'System.DateTime') <= '#{datepkFin.SelectedDate}#'";
+
+                }
+
+            }
+
+        }
+
+        
     }
 }
