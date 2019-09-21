@@ -47,7 +47,7 @@
                         <RowDefinition Height="125*"/>
                     </Grid.RowDefinitions>
 
-                    <Image Source="users/defaultUser.png" Stretch="UniformToFill" Margin="46,0,48,0" MaxWidth="250" MaxHeight="250" RenderTransformOrigin="0.506,0.365" />
+                    <Image x:Name="imgFoto" Source="users/defaultUser.png" Stretch="UniformToFill" Margin="46,0,48,0" MaxWidth="250" MaxHeight="250" RenderTransformOrigin="0.506,0.365" />
 
                     <StackPanel Grid.Row="1" Margin="0,11,0,0">
                         <TextBox x:Name="txtID" Height="30" TextWrapping="Wrap" CharacterCasing="Upper" MaxLines="1" MaxLength="10" KeyDown="txtID_KeyDown" TextAlignment="Center" />

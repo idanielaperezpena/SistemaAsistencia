@@ -20,14 +20,14 @@
         >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="84*"/>
+            <RowDefinition Height="84*"/>
+            <RowDefinition Height="84*"/>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="84*"/>
+            <RowDefinition Height="83*"/>
+            <RowDefinition Height="84*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -85,7 +85,7 @@
 
         </GroupBox>
         <TextBlock x:Name="txtBlckImagen" Grid.Column="1" Margin="36,14,36,50" Grid.Row="3" TextWrapping="Wrap" Text="No seleccionado." VerticalAlignment="Top" Grid.ColumnSpan="2"/>
-        <Image x:Name="imgFondo" Grid.Column="3" Margin="0" Grid.Row="2" Grid.RowSpan="2"/>
+        <Image x:Name="imgFondo" Grid.Column="3" Margin="0,0,16,0" Grid.Row="2" Grid.RowSpan="2"/>
 
     </Grid>
 </Window>

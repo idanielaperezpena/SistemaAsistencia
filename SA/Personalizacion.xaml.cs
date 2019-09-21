@@ -21,14 +21,17 @@ namespace SA
     /// </summary>
     public partial class Personalizacion : Window
     {
-        public Personalizacion()
+        MainWindow mainWindow;
+        Enlace enlace;
+        public Personalizacion( Enlace enlace,MainWindow mainWindow)
         {
+            this.mainWindow = mainWindow;
+            this.enlace = enlace;
             InitializeComponent();
         }
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
+            mainWindow.Show();
             this.Hide();
         }
 
@@ -37,7 +40,7 @@ namespace SA
         private void btnAplicar_Click(object sender, RoutedEventArgs e)
         {
             bool tipo=false; //false update true insert
-            Enlace enlace = new Enlace();
+            
             enlace.conectar();
             String[] s = new string[2];
             s=enlace.consultaPersonalizacion();

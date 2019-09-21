@@ -23,10 +23,31 @@ namespace SA
     public partial class RegistroNuevos : Window
     {
         Enlace enlace;
-        public RegistroNuevos()
+        MainWindow mainWindow;
+        public RegistroNuevos(Enlace enlace, MainWindow mainWindow)
         {
+            this.enlace = enlace;
+            this.mainWindow = mainWindow;
             InitializeComponent();
-            enlace = new Enlace();
+            carga_dg();
+            try
+            {
+                using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "users/defaultUser.png", FileMode.Open))
+                {
+                    imgFoto.Source = BitmapFrame.Create(streams,
+                                                      BitmapCreateOptions.None,
+                                                      BitmapCacheOption.OnLoad);
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        private void carga_dg()
+        {
             enlace.conectar();
             SQLiteDataAdapter adapter = new SQLiteDataAdapter();
             adapter = enlace.consulta();
@@ -39,8 +60,7 @@ namespace SA
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
+            mainWindow.Show();
             this.Close();
         }
 
@@ -58,8 +78,8 @@ namespace SA
                     if (contador == 0)
                     {
 
-                        enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text,txtTutor.Text,txtTelefono.Text, txtObservaciones.Text, "foto");
-                        
+                        enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text,txtTutor.Text,txtTelefono.Text, txtObservaciones.Text);
+                        imagen(txtID.Text);
                         MessageBox.Show("Alumno registrado con éxito.");
                         limpiar();
                     }
@@ -73,7 +93,8 @@ namespace SA
                 {
                     if (txtID.Text == row["ID"].ToString())
                     {
-                        enlace.actualizar(txtNombre.Text, txtGrupo.Text, txtTutor.Text, txtTelefono.Text, txtObservaciones.Text, "foto", txtID.Text);
+                        enlace.actualizar(txtNombre.Text, txtGrupo.Text, txtTutor.Text, txtTelefono.Text, txtObservaciones.Text, txtID.Text);
+                        imagen(txtID.Text);
                         MessageBox.Show("Datos de alumno actualizados.");
                         limpiar();
                     }
@@ -85,8 +106,9 @@ namespace SA
                             switch (result)
                             {
                                 case MessageBoxResult.OK:
-                                    enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtTutor.Text, txtTelefono.Text, txtObservaciones.Text, "foto");
-                                    MessageBox.Show("Alumno xx registrado con éxito.");
+                                    enlace.insertar(txtID.Text, txtNombre.Text, txtGrupo.Text, txtTutor.Text, txtTelefono.Text, txtObservaciones.Text);
+                                    imagen(txtID.Text);
+                                    MessageBox.Show("Alumno registrado con éxito.");
                                     limpiar();
                                     break;
 
@@ -104,22 +126,35 @@ namespace SA
             }
 
             dgAlumnos.ItemsSource = null;
-            SQLiteDataAdapter adapter = new SQLiteDataAdapter();
-            adapter = enlace.consulta();
-            DataTable table = new DataTable("ALUMNOS");
-            adapter.Fill(table);
-            dgAlumnos.ItemsSource = table.DefaultView;
-            adapter.Update(table);
-            enlace.cerrar();
+            carga_dg();
         }
         private void imagen(string id)
         {
-            if (imgFoto.Source != null)
+            if (imgFoto.Source != null )
             {
                 var encoder = new PngBitmapEncoder();
                 encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgFoto.Source));
-                using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + id+".jpeg", FileMode.Create))
+                using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + id +".jpeg", FileMode.Create))
                     encoder.Save(stream);
+            }
+        }
+        private void carga_imagen(string id)
+        {
+            
+            try
+            {
+                using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory + id+".jpeg", FileMode.Open))
+                {
+                    imgFoto.Source = BitmapFrame.Create(streams,
+                                                      BitmapCreateOptions.None,
+                                                      BitmapCacheOption.OnLoad);
+
+                }
+              
+            }
+            catch (Exception)
+            {
+
             }
         }
         public void limpiar()
@@ -130,11 +165,26 @@ namespace SA
             txtTutor.Text = String.Empty;
             txtTelefono.Text = String.Empty;
             txtObservaciones.Text = String.Empty;
-            //foto
+            try
+            {
+                using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory +"users/defaultUser.png", FileMode.Open))
+                {
+                    imgFoto.Source = BitmapFrame.Create(streams,
+                                                      BitmapCreateOptions.None,
+                                                      BitmapCacheOption.OnLoad);
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         private void dgAlumnos_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            limpiar();
             DataRowView row = dgAlumnos.SelectedItem as DataRowView;
             if (row != null)
             {
@@ -144,6 +194,8 @@ namespace SA
                 txtTutor.Text = row["TUTOR"].ToString();
                 txtTelefono.Text = row["TELEFONO"].ToString();
                 txtObservaciones.Text = row["OBSERVACIONES"].ToString();
+                carga_imagen(row["ID"].ToString());
+                
             } 
         }
 
@@ -311,5 +363,14 @@ namespace SA
             return doc;
         }
 
+        private void btnCargarExcel_Click(object sender, RoutedEventArgs e)
+        {
+            Excel excel = new Excel(enlace);
+            excel.ShowDialog();
+            carga_dg();
+            
+            
+
+        }
     }
 }

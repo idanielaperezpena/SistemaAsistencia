@@ -24,9 +24,13 @@ namespace SA
 
         Enlace enlace;
         DataTable table;
-        public ListadoES()
+        MainWindow mainWindow;
+        public ListadoES(Enlace enlace, MainWindow mainWindow)
         {
+            this.enlace = enlace;
+            this.mainWindow = mainWindow;
             InitializeComponent();
+            
             //combo grupo
             enlace = new Enlace();
             FillCombo();
@@ -71,7 +75,7 @@ namespace SA
         {
             
             
-            MainWindow mainWindow = new MainWindow();
+           
             mainWindow.Show();
             this.Close();
 
@@ -231,7 +235,8 @@ namespace SA
 
         private void cmbIntervalo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime fecha =DateTime.Now; 
+            DateTime fecha = DateTime.Today;
+ 
 
             switch (cmbIntervalo.SelectedIndex)
             {
@@ -266,6 +271,7 @@ namespace SA
         private void SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             
+
             filtrar();
         }
         private void filtrar()
@@ -278,30 +284,16 @@ namespace SA
             }
             if(datepkInicio.SelectedDate != null && datepkFin.SelectedDate != null && cmbGrado.SelectedValue != null)
             {
-                if (datepkInicio.SelectedDate == datepkFin.SelectedDate) //si las fechas de inicio y fin son iguales.
-                {
-                    table.DefaultView.RowFilter = $"CONVERT(FECHA,'System.DateTime') = '#{datepkInicio.SelectedDate}#' AND GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%' ";
-                    MessageBox.Show("entro al de iguales");
-                }
-                else //sino son iguales
-                {
-                    table.DefaultView.RowFilter = $"GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%' AND CONVERT(FECHA,'System.DateTime') >='#{datepkInicio.SelectedDate}#' AND CONVERT(FECHA,'System.DateTime') <= '#{datepkFin.SelectedDate}#'";
-
-                }
+                
+                   table.DefaultView.RowFilter = $"GRADO_GRUPO LIKE'{cmbGrado.SelectedValue.ToString()}%' AND CONVERT(FECHA,'System.DateTime') >='#{datepkInicio.SelectedDate}#' AND CONVERT(FECHA,'System.DateTime') <= '#{datepkFin.SelectedDate}#'";
+               
             }
             if (datepkInicio.SelectedDate != null && datepkFin.SelectedDate != null && cmbGrado.SelectedValue == null)
             {
 
-                if (datepkInicio.SelectedDate == datepkFin.SelectedDate) //si las fechas de inicio y fin son iguales.
-                {
-                    table.DefaultView.RowFilter = $"CONVERT(FECHA,'System.DateTime') = '#{datepkInicio.SelectedDate}#' ";
-                    MessageBox.Show("entro al de iguales2");
-                }
-                else //sino son iguales
-                {
+               
                     table.DefaultView.RowFilter = $"CONVERT(FECHA,'System.DateTime') >='#{datepkInicio.SelectedDate}#' AND CONVERT(FECHA,'System.DateTime') <= '#{datepkFin.SelectedDate}#'";
-
-                }
+                
 
             }
 

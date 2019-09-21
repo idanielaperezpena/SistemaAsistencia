@@ -1,0 +1,55 @@
+﻿<Window x:Class="SA.Excel"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:local="clr-namespace:SA"
+		mc:Ignorable="d"
+		Title="Sistema de Registro de Asistencia"
+		TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+		TextElement.FontWeight="Regular"
+		TextElement.FontSize="13"
+		TextOptions.TextFormattingMode="Ideal"
+		TextOptions.TextRenderingMode="Auto"
+		Background="{DynamicResource MaterialDesignPaper}"
+		FontFamily="{DynamicResource MaterialDesignFont}" 
+		HorizontalAlignment="Center" 
+		VerticalAlignment="Top"
+		WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="700" Width="1000" Topmost="True">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <materialDesign:Card Background="{DynamicResource PrimaryHueLightBrush}"
+Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Padding="32" Margin="16,16,16,0" Grid.ColumnSpan="4" Height="88" Grid.RowSpan="2">
+            <TextBlock Style="{DynamicResource MaterialDesignTitleTextBlock}">Carga de Datos</TextBlock>
+        </materialDesign:Card>
+        <Button x:Name="btnCargarArchivo" Style="{StaticResource MaterialDesignRaisedButton}" Content="Selecciona un archivo" Margin="30,0,204,0" Grid.Row="2" Grid.ColumnSpan="2" Click="btnCargarArchivo_Click" AutomationProperties.HelpText="El documento debe tener seis columnas ID, Nombre, Grado, Tutor, Telefono y Observaciones."/>
+        <TextBlock x:Name="textbRuta" Grid.Column="1" Margin="158,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="No has seleccionado nada." Grid.ColumnSpan="2" Height="30"/>
+        <ScrollViewer Grid.ColumnSpan="4" Margin="16,16,16,0" Grid.Row="4" Grid.RowSpan="6">
+            <DataGrid x:Name="dgExcel" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" CanUserReorderColumns="False" SelectionUnit="CellOrRowHeader"/>
+        </ScrollViewer>
+        <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="2" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="10" Height="32" VerticalAlignment="Center" Click="btnGuardar_Click"/>
+        <Button x:Name="btnRegresar" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="Regresar" Grid.Column="3" HorizontalAlignment="Left" Margin="53,0,0,0" Grid.Row="10" VerticalAlignment="Center" Click="btnRegresar_Click"/>
+        <ProgressBar x:Name="barra" Height="15" Margin="20,0" Grid.Row="3" Grid.ColumnSpan="4" Visibility="Hidden" IsIndeterminate="True"></ProgressBar>
+        <TextBox x:Name="txtCargando" Height="23" Margin="20,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Cargando..." Grid.ColumnSpan="4" TextAlignment="Center" Visibility="Hidden" IsReadOnly="True"/>
+       
+    </Grid>
+</Window>

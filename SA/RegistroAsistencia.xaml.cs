@@ -24,11 +24,13 @@ namespace SA
     {
         System.Windows.Threading.DispatcherTimer Timer = new System.Windows.Threading.DispatcherTimer();
         Enlace enlace;
-
-        public RegistroAsistencia()
+        MainWindow mainWindow;
+        public RegistroAsistencia( Enlace enlace, MainWindow mainWindow)
         {
+            this.enlace = enlace;
+            this.mainWindow = mainWindow;
             InitializeComponent();
-            enlace = new Enlace();
+            
            
 
             Image image = new Image();
@@ -47,7 +49,22 @@ namespace SA
             {
 
             }
-           
+            try
+            {
+                using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "users/defaultUser.png", FileMode.Open))
+                {
+                    imgFoto.Source = BitmapFrame.Create(streams,
+                                                      BitmapCreateOptions.None,
+                                                      BitmapCacheOption.OnLoad);
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
             txtID.Focus();
             txtFechaHora.Text= DateTime.Now.ToLongDateString() + "\n" + DateTime.Now.ToLongTimeString();
             Timer.Tick += new EventHandler(reloj);
@@ -59,8 +76,7 @@ namespace SA
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
+            mainWindow.Show();
             Timer.Stop();
             this.Close();
 
@@ -81,7 +97,30 @@ namespace SA
         
 
 
+        private void limpiar()
+        {
+            
+            txbID.Text = "ID";
+            txbNombre.Text ="Nombre";
+            txbGradoGrupo.Text = "Grado y Grupo";
+            txbObservaciones.Text = String.Empty;
+            try
+            {
+                using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "users/defaultUser.png", FileMode.Open))
+                {
+                    imgFoto.Source = BitmapFrame.Create(streams,
+                                                      BitmapCreateOptions.None,
+                                                      BitmapCacheOption.OnLoad);
 
+                }
+
+            }
+            catch (Exception)
+            {
+
+            }
+
+        }
         private void txtID_KeyDown(object sender, KeyEventArgs e)
         {
                       
@@ -98,15 +137,37 @@ namespace SA
                     txbNombre.Text = resultado[1];
                     txbGradoGrupo.Text = resultado[2];
                     txbObservaciones.Text = resultado[3];
+                    carga_imagen(resultado[0]);
+
                     
                    
                 }
                 else
                 {
+                    limpiar();
                     MessageBox.Show("Alumno no encontrado", "No encontrado", MessageBoxButton.OK, MessageBoxImage.Exclamation);
                 }
                 txtID.Clear();
                 enlace.cerrar();
+            }
+        }
+        private void carga_imagen(string id)
+        {
+
+            try
+            {
+                using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory + id + ".jpeg", FileMode.Open))
+                {
+                    imgFoto.Source = BitmapFrame.Create(streams,
+                                                      BitmapCreateOptions.None,
+                                                      BitmapCacheOption.OnLoad);
+
+                }
+
+            }
+            catch (Exception)
+            {
+
             }
         }
     }

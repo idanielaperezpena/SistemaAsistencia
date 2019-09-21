@@ -24,11 +24,11 @@ namespace SA
         RegistroAsistencia ra; 
         ListadoES ls;
         Personalizacion ps;
-
+        Enlace enlace;
         public MainWindow()
         {
             InitializeComponent();
-            Enlace enlace = new Enlace();
+            enlace = new Enlace();
             enlace.conectar();
             enlace.tablas();
             String[] s = new string[2];
@@ -47,7 +47,7 @@ namespace SA
 
         private void btnRegistarAlumnos_Click(object sender, RoutedEventArgs e)
         {
-           rn= new RegistroNuevos();
+           rn= new RegistroNuevos(enlace, this);
             rn.Show();
             this.Hide();
             
@@ -55,7 +55,7 @@ namespace SA
 
         private void btnRegistrarAsistencia_Click(object sender, RoutedEventArgs e)
         {
-            ra = new RegistroAsistencia();
+            ra = new RegistroAsistencia(enlace, this);
             ra.Show();
             this.Hide();
 
@@ -63,7 +63,7 @@ namespace SA
 
         private void btnListado_Click(object sender, RoutedEventArgs e)
         {
-            ls= new ListadoES();
+            ls= new ListadoES(enlace, this);
             ls.Show();
             this.Hide();
            
@@ -72,7 +72,7 @@ namespace SA
         private void btnPersonalizar_Click(object sender, RoutedEventArgs e)
         {
 
-            ps = new Personalizacion();
+            ps = new Personalizacion(enlace, this);
             ps.Show();
             this.Hide();
         }
