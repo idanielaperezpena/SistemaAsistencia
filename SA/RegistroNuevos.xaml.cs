@@ -102,7 +102,7 @@ namespace SA
                     {
                         if (txtNombre.Text == row["NOMBRE"].ToString())
                         {
-                            MessageBoxResult result = MessageBox.Show("Ya hay un alumno registrado con este nombre, ¿Desea continuar?", "Registro", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                            MessageBoxResult result = MessageBox.Show("Ya hay un alumno registrado con este nombre, ¿Desea continuar?", "Registro", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
                             switch (result)
                             {
                                 case MessageBoxResult.OK:
@@ -371,6 +371,35 @@ namespace SA
             
             
 
+        }
+
+        private void btnEliminar_Click(object sender, RoutedEventArgs e)
+        {
+            enlace.conectar();
+            DataRowView row = dgAlumnos.SelectedItem as DataRowView;
+            if (row == null)
+            {
+                MessageBox.Show("No ha seleccionado un registro.");
+            }
+            else
+            {
+                MessageBoxResult resulta = MessageBox.Show("¿Desea eliminar el registro?", "Eliminar", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+                switch (resulta)
+                {
+                    case MessageBoxResult.OK:
+                        enlace.eliminar(row["ID"].ToString());
+                        MessageBox.Show("Registro eliminado");
+                        limpiar();
+                        break;
+
+                    case MessageBoxResult.Cancel:
+                        limpiar();
+                        break;
+
+                }
+
+            }
+            carga_dg();
         }
     }
 }

@@ -84,6 +84,7 @@
         </ScrollViewer>
         <Button x:Name="btnImagen" Content="Seleccione una imagen" HorizontalAlignment="Center" Margin="232,0,0,0" Grid.Row="8" VerticalAlignment="Center" Width="216" Click="btnImagen_Click"/>
         <Button x:Name="btnCargarExcel" Style="{StaticResource MaterialDesignRaisedButton}" Width="182" ToolTip="Resource name: MaterialDesignRaisedButton" Grid.Row="10" RenderTransformOrigin="-0.075,0.404" Margin="41,0,0,0" HorizontalAlignment="Left" Click="btnCargarExcel_Click" Content="Cargar desde excel" Grid.Column="1"/>
+        <Button x:Name="btnEliminar" Content="Eliminar" HorizontalAlignment="Left" Margin="305,0,0,13" Grid.Row="10" VerticalAlignment="Bottom" Width="100" Click="btnEliminar_Click"/>
     </Grid>
 
 </Window>

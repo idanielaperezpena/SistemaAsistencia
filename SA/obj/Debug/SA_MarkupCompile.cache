@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\
 SA
 none
 false
 DEBUG;TRACE
-C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\App.xaml
+C:\xampp\htdocs\SistemaAsistencia\SA\App.xaml
 6-553253834
 
-111633873375
-241559957053
+15-1203018549
+24-1672549717
 Excel.xaml;ListadoES.xaml;MainWindow.xaml;Personalizacion.xaml;RegistroAsistencia.xaml;RegistroNuevos.xaml;
 
-False
+True
 

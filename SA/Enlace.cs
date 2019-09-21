@@ -79,6 +79,12 @@ namespace SA
             comandos(sql);
         }
 
+        public void eliminar(string id)
+        {
+            string sql = "DELETE FROM ALUMNOS WHERE ID ='" + id + "';";
+            comandos(sql);
+        }
+
         public int consulta_existencia(string id)
         {         
             SQLiteCommand command = new SQLiteCommand("SELECT ID FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);

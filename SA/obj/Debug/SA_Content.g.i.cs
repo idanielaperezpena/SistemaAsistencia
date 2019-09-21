@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sources/defaultuser.png")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("ic_launcher.ico")]
 
 

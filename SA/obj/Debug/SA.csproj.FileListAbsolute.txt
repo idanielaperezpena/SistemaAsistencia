@@ -87,7 +87,6 @@ C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.csproj.CoreCompileInputs.cache
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.csproj.CopyComplete
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.exe
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.pdb
-C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\FlowDocument1.baml
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\users\defaultUser.png
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\SA.exe.config
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\SA.exe
@@ -130,3 +129,7 @@ C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csproj.CoreComp
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.exe
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.pdb
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csprojResolveAssemblyReference.cache
+C:\xampp\htdocs\SistemaAsistencia\SA\bin\Debug\users\defaultUser.png
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\SA.csproj.ResolveComReference.cache
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Excel.g.cs
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Excel.baml
