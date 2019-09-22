@@ -91,6 +91,7 @@ namespace SA
                 enlace.color("Green", tipo);
             }
             enlace.cerrar();
+            
             if (imgFondo.Source != null)
             {
                 var encoder = new PngBitmapEncoder();

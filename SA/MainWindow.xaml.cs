@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using MaterialDesignThemes.Wpf;
+using MaterialDesignColors;
+
 namespace SA
 {
     /// <summary>
@@ -20,15 +23,24 @@ namespace SA
     /// </summary>
     public partial class MainWindow : Window
     {
-        RegistroNuevos rn; 
-        RegistroAsistencia ra; 
+        RegistroNuevos rn;
+        RegistroAsistencia ra;
         ListadoES ls;
         Personalizacion ps;
         Enlace enlace;
+        
         public MainWindow()
         {
             InitializeComponent();
             enlace = new Enlace();
+            actualizacion_color();
+           
+
+
+
+        }
+        public void actualizacion_color()
+        {
             enlace.conectar();
             enlace.tablas();
             String[] s = new string[2];
@@ -39,18 +51,14 @@ namespace SA
                 Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + s[1] + ".xaml");
                 Application.Current.Resources.MergedDictionaries[0].Source = uri;
             }
-
-           
-
-
         }
 
         private void btnRegistarAlumnos_Click(object sender, RoutedEventArgs e)
         {
-           rn= new RegistroNuevos(enlace, this);
+            rn = new RegistroNuevos(enlace, this);
             rn.Show();
             this.Hide();
-            
+
         }
 
         private void btnRegistrarAsistencia_Click(object sender, RoutedEventArgs e)
@@ -63,10 +71,10 @@ namespace SA
 
         private void btnListado_Click(object sender, RoutedEventArgs e)
         {
-            ls= new ListadoES(enlace, this);
+            ls = new ListadoES(enlace, this);
             ls.Show();
             this.Hide();
-           
+
         }
 
         private void btnPersonalizar_Click(object sender, RoutedEventArgs e)
@@ -80,6 +88,12 @@ namespace SA
         private void WInicio_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
             System.Environment.Exit(1);
+
         }
+
+        
+
+       
+        
     }
 }
