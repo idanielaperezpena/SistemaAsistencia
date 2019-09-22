@@ -132,3 +132,5 @@ C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csproj.Generate
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csproj.CoreCompileInputs.cache
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.exe
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.pdb
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Login.g.cs
+C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Login.baml
