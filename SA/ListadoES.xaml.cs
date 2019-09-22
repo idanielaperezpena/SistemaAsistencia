@@ -299,6 +299,11 @@ namespace SA
 
         }
 
-        
+        private void btnBorrarfiltros_Click(object sender, RoutedEventArgs e)
+        {
+            table.DefaultView.RowFilter = null;
+            cmbGrado.SelectedIndex = -1;
+            cmbIntervalo.SelectedIndex = -1;
+        }
     }
 }

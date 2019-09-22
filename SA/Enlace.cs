@@ -87,7 +87,7 @@ namespace SA
 
         public int consulta_existencia(string id)
         {         
-            SQLiteCommand command = new SQLiteCommand("SELECT ID FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);
+            SQLiteCommand command = new SQLiteCommand("SELECT COUNT(ID) FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);
             int count = Convert.ToInt32(command.ExecuteScalar());
             command.ExecuteNonQuery();          
             return count;

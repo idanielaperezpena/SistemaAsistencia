@@ -70,7 +70,7 @@ namespace SA
             
             enlace.conectar();
             DataRowView row = dgAlumnos.SelectedItem as DataRowView;
-            if (!String.IsNullOrWhiteSpace(txtID.Text) || !String.IsNullOrWhiteSpace(txtNombre.Text) || !String.IsNullOrWhiteSpace(txtGrupo.Text))
+            if (!String.IsNullOrWhiteSpace(txtID.Text) && !String.IsNullOrWhiteSpace(txtNombre.Text) && !String.IsNullOrWhiteSpace(txtGrupo.Text))
             {
                 if (row == null)
                 {
