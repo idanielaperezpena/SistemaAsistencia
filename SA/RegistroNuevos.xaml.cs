@@ -30,6 +30,7 @@ namespace SA
             this.mainWindow = mainWindow;
             InitializeComponent();
             carga_dg();
+            TamanoPantalla(this, mainWindow);
             try
             {
                 using (FileStream streams = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "users/defaultUser.png", FileMode.Open))
@@ -46,6 +47,11 @@ namespace SA
 
             }
         }
+        private void TamanoPantalla(Window receiver, Window giver)
+        {
+            receiver.WindowState = giver.WindowState;
+        }
+
         private void carga_dg()
         {
             enlace.conectar();
@@ -60,7 +66,10 @@ namespace SA
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
+            TamanoPantalla(mainWindow, this);
+
             mainWindow.Show();
+            
             this.Close();
         }
 
@@ -202,8 +211,8 @@ namespace SA
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //  TODO DANN
-            //Environment.Exit(1);
+            TamanoPantalla(mainWindow, this);
+            mainWindow.Show();
         }
 
         private void btnImagen_Click(object sender, RoutedEventArgs e)

@@ -31,7 +31,7 @@ namespace SA
             this.mainWindow = mainWindow;
             InitializeComponent();
             
-           
+
 
             Image image = new Image();
             try
@@ -73,9 +73,12 @@ namespace SA
             
 
         }
+       
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
+         
+            
             mainWindow.Show();
             Timer.Stop();
             this.Close();
@@ -90,8 +93,9 @@ namespace SA
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //todo Dann
-           // Environment.Exit(1);
+            
+            mainWindow.Show();
+          
         }
 
         

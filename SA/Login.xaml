@@ -31,6 +31,6 @@
         <Button x:Name="btnIngresar" Content="Ingresar" HorizontalAlignment="Left" Margin="36,71,0,0" Grid.Row="2" VerticalAlignment="Top" Height="40" Width="103" Click="btnIngresar_Click" Grid.Column="2"/>
         <TextBlock Style="{StaticResource MaterialDesignTitleTextBlock}" Margin="17,88,25,120" Grid.Row="1" Text="Contraseña de ingreso" Grid.ColumnSpan="3" Grid.RowSpan="2"/>
         <Label Content="Sistema de registro de Asistencia" HorizontalAlignment="Left" Margin="105,13,0,0" VerticalAlignment="Top" Grid.ColumnSpan="3" FontSize="18" FontWeight="Bold"/>
-        <PasswordBox  x:Name="txtclave"  materialDesign:HintAssist.Hint="Contraseña" Margin="17,114,25,120" MaxLength="10"  Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2"  />
+        <PasswordBox  x:Name="txtclave"  materialDesign:HintAssist.Hint="Contraseña" Margin="17,114,25,120" MaxLength="10"  Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" KeyDown="txtclave_KeyDown"  />
     </Grid>
 </Window>

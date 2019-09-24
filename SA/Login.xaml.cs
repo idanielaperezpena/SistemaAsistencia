@@ -27,6 +27,7 @@ namespace SA
         public Login( Enlace enlace, MainWindow main)
         {
             InitializeComponent();
+            txtclave.Focus();
             this.enlace = enlace;
             this.main = main;
         }
@@ -57,5 +58,14 @@ namespace SA
            
 
         }
+
+        private void txtclave_KeyDown(object sender, KeyEventArgs e)
+        {
+
+            if (e.Key == Key.Enter)
+            {
+                btnIngresar_Click(sender, e);
+            }
+         }
     }
 }

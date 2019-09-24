@@ -27,11 +27,17 @@ namespace SA
             this.mainWindow = mainWindow;
             this.enlace = enlace;
             InitializeComponent();
+            TamanoPantalla(this, mainWindow);
+        }
+        private void TamanoPantalla(Window receiver, Window giver)
+        {
+            receiver.WindowState = giver.WindowState;
         }
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
+            TamanoPantalla(mainWindow, this);
             mainWindow.Show();
-            this.Hide();
+            this.Close();
         }
 
         
@@ -103,8 +109,9 @@ namespace SA
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //TODO DANN
-            //Environment.Exit(1);
+            TamanoPantalla(mainWindow, this);
+            mainWindow.Show();
+            
         }
 
         private void btnImagen_Click(object sender, RoutedEventArgs e)

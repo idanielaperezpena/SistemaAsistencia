@@ -35,7 +35,12 @@ namespace SA
             enlace = new Enlace();
             FillCombo();
             FillDG();
-            
+            TamanoPantalla(this, mainWindow);
+           
+        }
+        private void TamanoPantalla(Window receiver, Window giver)
+        {
+            receiver.WindowState = giver.WindowState;
         }
         private void FillDG()
         {
@@ -73,19 +78,23 @@ namespace SA
 
         private void btnRegresarMenu_Click(object sender, RoutedEventArgs e)
         {
-            
-            
-           
+
+
+            TamanoPantalla(mainWindow, this);
             mainWindow.Show();
+
             this.Close();
 
         }
 
-        
+
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            //Environment.Exit(1);
+            TamanoPantalla(mainWindow, this);
+            mainWindow.Show();
+           
+        
         }
 
         private void btnImprimir_Click(object sender, RoutedEventArgs e)
@@ -108,7 +117,7 @@ namespace SA
         }
         private FlowDocument CreateFlowDocument()
         {
-            //alfo muy amorfo
+            //algo muy amorfo
             // Create a FlowDocument  
             FlowDocument doc = new FlowDocument();
             // Create a Section  
@@ -124,7 +133,7 @@ namespace SA
             table1.FontFamily = new FontFamily("Arial");
 
             int n = dgListado.Columns.Count;
-            table1.Columns.Add(new TableColumn() { Width = new GridLength(0.5,GridUnitType.Star)});
+            table1.Columns.Add(new TableColumn() { Width = new GridLength(1,GridUnitType.Star)});
             table1.Columns.Add(new TableColumn() { Width = new GridLength(1.5, GridUnitType.Star) });
             table1.Columns.Add(new TableColumn() { Width = new GridLength(5, GridUnitType.Star) });
             for (int i = 3; i < n; i++)
@@ -157,16 +166,38 @@ namespace SA
             currentRow = table1.RowGroups[0].Rows[1];
             currentRow.FontSize = 14;
             currentRow.FontWeight = FontWeights.Bold;
-            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Grupo:"))));
-            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Fecha:"))));
+            string grado;
+            if (cmbGrado.SelectedItem!=null)
+            {
+                grado = cmbGrado.SelectedValue.ToString();
+            }
+            else
+            {
+                grado = "No Aplica";
+            }
+            String fechaI="";
+            String fechaF = "";
+            if (datepkInicio.SelectedDate != null)
+            {
+                fechaI = datepkInicio.SelectedDate.Value.ToShortDateString();
+            }
+            if (datepkFin.SelectedDate != null)
+            {
+                fechaF = datepkFin.SelectedDate.Value.ToShortDateString();
+            }
+
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Grupo: "+grado))));
+            currentRow.Cells.Add(new TableCell(new Paragraph(new Run("Fecha: "+fechaI+" - "+fechaF))));
             currentRow.Cells[0].ColumnSpan = n/2;
-            currentRow.Cells[1].ColumnSpan = n / 2;
+            currentRow.Cells[1].ColumnSpan = n/2;
+            currentRow.Cells[0].Padding = new Thickness(4, 4, 4, 4);
+            currentRow.Cells[1].Padding = new Thickness(4, 4, 4, 4);
             // tercera fila, encabezados
             table1.RowGroups[0].Rows.Add(new TableRow());
             currentRow = table1.RowGroups[0].Rows[2];
 
             // Global formatting for the header row.
-            currentRow.FontSize = 14;
+            currentRow.FontSize = 13;
             currentRow.FontWeight = FontWeights.Bold;
 
 

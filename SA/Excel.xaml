@@ -46,7 +46,7 @@ Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Padding="32" Margi
         <ScrollViewer Grid.ColumnSpan="4" Margin="16,16,16,0" Grid.Row="4" Grid.RowSpan="6">
             <DataGrid x:Name="dgExcel" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" CanUserReorderColumns="False" SelectionUnit="CellOrRowHeader"/>
         </ScrollViewer>
-        <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="2" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="10" Height="32" VerticalAlignment="Center" Click="btnGuardar_Click"/>
+        <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="2" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="10" Height="32" VerticalAlignment="Center" Click="btnGuardar_Click" IsEnabled="False"/>
         <Button x:Name="btnRegresar" Style="{StaticResource MaterialDesignRaisedLightButton}" Content="Regresar" Grid.Column="3" HorizontalAlignment="Left" Margin="53,0,0,0" Grid.Row="10" VerticalAlignment="Center" Click="btnRegresar_Click"/>
         <ProgressBar x:Name="barra" Height="15" Margin="20,0" Grid.Row="3" Grid.ColumnSpan="4" Visibility="Hidden" IsIndeterminate="True"></ProgressBar>
         <TextBox x:Name="txtCargando" Height="23" Margin="20,0,0,0" Grid.Row="3" TextWrapping="Wrap" Text="Cargando..." Grid.ColumnSpan="4" TextAlignment="Center" Visibility="Hidden" IsReadOnly="True"/>
