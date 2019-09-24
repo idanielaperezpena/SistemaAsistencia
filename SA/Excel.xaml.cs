@@ -16,6 +16,8 @@ using System.Data;
 using Excels=Microsoft.Office.Interop.Excel;
 using System.Threading;
 using System.ComponentModel;
+using System.IO;
+using System.Data.OleDb;
 
 namespace SA
 {
@@ -41,160 +43,228 @@ namespace SA
             InitializeComponent();
             
             table = new DataTable("Alumnos Cargados");
-            // Creando primera columna
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "ID";
-            column.Caption = "ID";
-            column.ReadOnly = true;
-            column.Unique = true;
+            //DataRow r = table.NewRow();
+            //r[0] = "ID";
+            //r[1] = "Nombre";
+            //r[2] = "Grado y Grupo";
+            //r[3] = "Teléfono";
+            //r[4] = "Tutor";
+            //r[5] = "Observaciones";
+            //table.Rows.Add(r);
+            //// Creando primera columna
+            //column = new DataColumn();
+            ////column.DataType = System.Type.GetType("System.String");
+            //column.ColumnName = "ID";
+            //column.Caption = "ID";
+            ////column.ReadOnly = true;
+            ////column.Unique = true;
 
-            // agregandola a la tabla
-            table.Columns.Add(column);
+            //// agregandola a la tabla
+            //table.Columns.Add(column);
 
-            // Creando segunda columna
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "NombreCompleto";
-            column.AutoIncrement = false;
-            column.Caption = "Nombre Completo";
-            column.ReadOnly = true;
-            column.Unique = false;
-            table.Columns.Add(column);
+            //// Creando segunda columna
+            //column = new DataColumn();
+            ////column.DataType = System.Type.GetType("System.String");
+            //column.ColumnName = "NombreCompleto";
+            //column.AutoIncrement = false;
+            //column.Caption = "Nombre Completo";
+            ////column.ReadOnly = true;
+            ////column.Unique = false;
+            //table.Columns.Add(column);
 
-            // Creando tercera columna
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "GradoGrupo";
-            column.AutoIncrement = false;
-            column.Caption = "Grado y Grupo";
-            column.ReadOnly = true;
-            column.Unique = false;
-            table.Columns.Add(column);
+            //// Creando tercera columna
+            //column = new DataColumn();
+            ////column.DataType = System.Type.GetType("System.String");
+            //column.ColumnName = "GradoGrupo";
+            //column.AutoIncrement = false;
+            //column.Caption = "Grado y Grupo";
+            ////column.ReadOnly = true;
+            ////column.Unique = false;
+            //table.Columns.Add(column);
 
-            // Creando cuarta columna
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Tutor";
-            column.AutoIncrement = false;
-            column.Caption = "Tutor";
-            column.ReadOnly = true;
-            column.Unique = false;
-            table.Columns.Add(column);
+            //// Creando cuarta columna
+            //column = new DataColumn();
+            ////column.DataType = System.Type.GetType("System.String");
+            //column.ColumnName = "Tutor";
+            //column.AutoIncrement = false;
+            //column.Caption = "Tutor";
+            ////column.ReadOnly = true;
+            ////column.Unique = false;
+            //table.Columns.Add(column);
 
-            // Creando quinta columna
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Telefono";
-            column.AutoIncrement = false;
-            column.Caption = "Teléfono";
-            column.ReadOnly = true;
-            column.Unique = false;
-            table.Columns.Add(column);
+            //// Creando quinta columna
+            //column = new DataColumn();
+            ////column.DataType = System.Type.GetType("System.String");
+            //column.ColumnName = "Telefono";
+            //column.AutoIncrement = false;
+            //column.Caption = "Teléfono";
+            ////column.ReadOnly = true;
+            ////column.Unique = false;
+            //table.Columns.Add(column);
 
-            // Creando sexta columna
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "Observaciones";
-            column.AutoIncrement = false;
-            column.Caption = "Observaciones";
-            column.ReadOnly = true;
-            column.Unique = false;
-            table.Columns.Add(column);
+            //// Creando sexta columna
+            //column = new DataColumn();
+            ////column.DataType = System.Type.GetType("System.String");
+            //column.ColumnName = "Observaciones";
+            //column.AutoIncrement = false;
+            //column.Caption = "Observaciones";
+            ////column.ReadOnly = true;
+            ////column.Unique = false;
+            //table.Columns.Add(column);
+
+
+
         }
-        private void cerrar_excel()
-        {
-            //cleanup
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
+        //private void cerrar_excel()
+        //{
+        //    //cleanup
+        //    GC.Collect();
+        //    GC.WaitForPendingFinalizers();
 
-            //rule of thumb for releasing com objects:
-            //  never use two dots, all COM objects must be referenced and released individually
-            //  ex: [somthing].[something].[something] is bad
+        //    //rule of thumb for releasing com objects:
+        //    //  never use two dots, all COM objects must be referenced and released individually
+        //    //  ex: [somthing].[something].[something] is bad
 
-            //release com objects to fully kill excel process from running in the background
-            if(xlRange!=null)
-            Marshal.ReleaseComObject(xlRange);
-            if(xlWorksheet!=null)
-            Marshal.ReleaseComObject(xlWorksheet);
+        //    //release com objects to fully kill excel process from running in the background
+        //    if(xlRange!=null)
+        //    Marshal.ReleaseComObject(xlRange);
+        //    if(xlWorksheet!=null)
+        //    Marshal.ReleaseComObject(xlWorksheet);
 
-            //close and release
-            if (xlWorkbook != null) {
-            xlWorkbook.Close();
-            Marshal.ReleaseComObject(xlWorkbook);
-            }
+        //    //close and release
+        //    if (xlWorkbook != null) {
+        //    xlWorkbook.Close();
+        //    Marshal.ReleaseComObject(xlWorkbook);
+        //    }
 
-            //quit and release
-            if (xlApp!=null)
-            {
-                 xlApp.Quit();
-                 Marshal.ReleaseComObject(xlApp);
-            }
-           
-        }
+        //    //quit and release
+        //    if (xlApp!=null)
+        //    {
+        //         xlApp.Quit();
+        //         Marshal.ReleaseComObject(xlApp);
+        //    }
+
+        //}
         private void carga_excel(object sender, DoWorkEventArgs e)
         {
-            try
+            //    try
+            //    {
+            //        //LO DE EXCEL
+
+            //        //Create COM Objects. Create a COM object for everything that is referenced
+
+            //        xlApp = new Excels.Application();
+            //        xlWorkbook = xlApp.Workbooks.Open(filename);
+            //        xlWorksheet = xlWorkbook.Sheets[1];
+            //        xlRange = xlWorksheet.UsedRange;
+            //        //contamos las columnas y filas :D
+            //        int rowCount = xlRange.Rows.Count;
+            //        int colCount = xlRange.Columns.Count;
+
+            //        //iterate over the rows and columns and print to the console as it appears in the file
+            //        //excel is not zero based!!
+            //        DataRow row;
+            //        for (int i = 1; i <= rowCount + 1; i++)
+            //        {
+            //            row = table.NewRow();
+
+
+            //            for (int j = 1; j <= colCount; j++)
+            //            {
+
+
+
+
+            //                //write the value to the console
+            //                if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
+            //                {
+
+            //                    row[j - 1] = xlRange.Cells[i, j].Value2.ToString();
+            //                }
+
+            //            }
+
+            //            table.Rows.Add(row);
+
+            //        }
+            //        this.Dispatcher.BeginInvoke(new Action(() =>
+            //        {
+
+            //            dgExcel.ItemsSource = table.DefaultView;
+
+            //        }));
+
+            //        cerrar_excel();
+            //    }
+            //    catch (Exception)
+            //    {
+            //        cerrar_excel();
+            //    }
+
+
+            DataTable dt = new DataTable("x");
+          
+            string filePath = filename;
+            string conString = string.Empty;
+            FileInfo fi = new FileInfo(filePath);
+            string extension = fi.Extension;
+
+            switch (extension)
             {
-                //LO DE EXCEL
+                case ".xls": //Excel 97-03.
+                    conString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
+                    break;
+                case ".xlsx": //Excel 07 and above.
+                    conString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
+                    break;
+            }
 
-                //Create COM Objects. Create a COM object for everything that is referenced
+            //create datatable object
 
-                xlApp = new Excels.Application();
-                xlWorkbook = xlApp.Workbooks.Open(filename);
-                xlWorksheet = xlWorkbook.Sheets[1];
-                xlRange = xlWorksheet.UsedRange;
-                //contamos las columnas y filas :D
-                int rowCount = xlRange.Rows.Count;
-                int colCount = xlRange.Columns.Count;
+            conString = string.Format(conString, filePath);
 
-                //iterate over the rows and columns and print to the console as it appears in the file
-                //excel is not zero based!!
-                DataRow row;
-                for (int i = 1; i <= rowCount + 1; i++)
+            //Use OldDb to read excel
+            using (OleDbConnection connExcel = new OleDbConnection(conString))
+            {
+                using (OleDbCommand cmdExcel = new OleDbCommand())
                 {
-                    row = table.NewRow();
+                    using (OleDbDataAdapter odaExcel = new OleDbDataAdapter())
+                    {
+                        cmdExcel.Connection = connExcel;
+
+                        //Get the name of First Sheet.
+                        connExcel.Open();
+                        DataTable dtExcelSchema;
+                        dtExcelSchema = connExcel.GetOleDbSchemaTable(OleDbSchemaGuid.Tables, null);
+                        string sheetName = dtExcelSchema.Rows[0]["TABLE_NAME"].ToString();
+                        connExcel.Close();
+
+                        //Read Data from First Sheet.
+                        connExcel.Open();
+                        cmdExcel.CommandText = "SELECT * From [" + sheetName + "]";
+                        odaExcel.SelectCommand = cmdExcel;
+                        odaExcel.Fill(table);
+                        connExcel.Close();
+                    }
+                }
+            }
 
 
-                    for (int j = 1; j <= colCount; j++)
+
+
+
+            //bind datatable with GridView
+            this.Dispatcher.BeginInvoke(new Action(() =>
                     {
 
+                        dgExcel.ItemsSource = table.DefaultView;
 
+                    }));
 
-
-                        //write the value to the console
-                        if (xlRange.Cells[i, j] != null && xlRange.Cells[i, j].Value2 != null)
-                        {
-
-                            row[j - 1] = xlRange.Cells[i, j].Value2.ToString();
-                        }
-
-                    }
-
-                    table.Rows.Add(row);
-
-                }
-                this.Dispatcher.BeginInvoke(new Action(() =>
-                {
-
-                    dgExcel.ItemsSource = table.DefaultView;
-
-                }));
-
-                cerrar_excel();
-            }
-            catch (Exception)
-            {
-                cerrar_excel();
-            }
-
-
-            
-        
         }
 
-        
-            private void btnCargarArchivo_Click(object sender, RoutedEventArgs e) {
+
+        private void btnCargarArchivo_Click(object sender, RoutedEventArgs e) {
 
             // Create OpenFileDialog 
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
@@ -204,15 +274,13 @@ namespace SA
             
             // Display OpenFileDialog by calling ShowDialog method 
             Nullable<bool> result = dlg.ShowDialog();
-            
-
-            // Get the selected file name and display in a TextBox 
             if (result == true)
             {
 
+                filename = dlg.FileName;
+
                 barra.Visibility = Visibility.Visible;
                 txtCargando.Visibility = Visibility.Visible;
-                filename = dlg.FileName;
                 textbRuta.Text = filename;
                 btnCargarArchivo.IsEnabled = false;
                 btnGuardar.IsEnabled = false;
@@ -220,15 +288,35 @@ namespace SA
                 BackgroundWorker worker = new BackgroundWorker();
 
                 worker.DoWork += carga_excel;
-               worker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+                worker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
                 worker.RunWorkerAsync();
-                
-                
-                
 
 
             }
-            
+
+            // Get the selected file name and display in a TextBox 
+            //if (result == true)
+            //{
+
+            //    barra.Visibility = Visibility.Visible;
+            //    txtCargando.Visibility = Visibility.Visible;
+            //    filename = dlg.FileName;
+            //    textbRuta.Text = filename;
+            //    btnCargarArchivo.IsEnabled = false;
+            //    btnGuardar.IsEnabled = false;
+            //    btnRegresar.IsEnabled = false;
+            //    BackgroundWorker worker = new BackgroundWorker();
+
+            //    worker.DoWork += carga_excel;
+            //   worker.RunWorkerCompleted += backgroundWorker_RunWorkerCompleted;
+            //    worker.RunWorkerAsync();
+
+
+
+
+
+            //}
+
         }
 
         private void backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)

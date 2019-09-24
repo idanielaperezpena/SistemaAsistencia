@@ -134,3 +134,6 @@ C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.exe
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.pdb
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Login.g.cs
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Login.baml
+C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csprojResolveAssemblyReference.cache
+C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\Login.g.cs
+C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\Login.baml

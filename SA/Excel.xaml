@@ -16,7 +16,7 @@
 		FontFamily="{DynamicResource MaterialDesignFont}" 
 		HorizontalAlignment="Center" 
 		VerticalAlignment="Top"
-		WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="700" Width="1000" Topmost="True">
+		WindowStartupLocation="CenterScreen" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="True" Height="700" Width="1000" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>

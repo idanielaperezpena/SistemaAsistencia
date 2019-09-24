@@ -19,24 +19,30 @@ namespace SA
     /// </summary>
     public partial class Login : Window
     {
-        MainWindow mw;
+        MainWindow main;
+        Enlace enlace;
+        bool confirmacion;
         string clave = "1234";
 
-        public Login()
+        public Login( Enlace enlace, MainWindow main)
         {
             InitializeComponent();
+            this.enlace = enlace;
+            this.main = main;
         }
 
         private void btnIngresar_Click(object sender, RoutedEventArgs e)
         {
-            if (txtclave.Text == clave)
+            if (txtclave.Password == clave)
             {
-                mw = new MainWindow();
-                mw.Show();
-                this.Hide();
+                confirmacion = true;
+               RegistroNuevos rn = new RegistroNuevos(enlace, main);
+                rn.Show();
+                this.Close();
             }
             else
             {
+                confirmacion = false;
                 MessageBox.Show("Clave incorrecta, intente de nuevo");
             }
           
@@ -44,7 +50,11 @@ namespace SA
 
         private void Login_Closing(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            System.Environment.Exit(1);
+            if (confirmacion == false)
+            {
+                main.Show();
+            }
+           
 
         }
     }

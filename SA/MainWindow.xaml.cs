@@ -33,6 +33,9 @@ namespace SA
         {
             InitializeComponent();
             enlace = new Enlace();
+            enlace.conectar();
+            enlace.tablas();
+            enlace.cerrar();
             actualizacion_color();
            
 
@@ -42,7 +45,7 @@ namespace SA
         public void actualizacion_color()
         {
             enlace.conectar();
-            enlace.tablas();
+          
             String[] s = new string[2];
             s = enlace.consultaPersonalizacion();
             enlace.cerrar();
@@ -55,9 +58,9 @@ namespace SA
 
         private void btnRegistarAlumnos_Click(object sender, RoutedEventArgs e)
         {
-            rn = new RegistroNuevos(enlace, this);
-            rn.Show();
-            this.Hide();
+            Login login = new Login(enlace,this);
+            login.Show();
+           this.Hide();
 
         }
 
