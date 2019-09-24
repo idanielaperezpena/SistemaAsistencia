@@ -127,6 +127,7 @@ namespace SA
 
             dgAlumnos.ItemsSource = null;
             carga_dg();
+            enlace.cerrar();
         }
         private void imagen(string id)
         {
@@ -400,6 +401,14 @@ namespace SA
 
             }
             carga_dg();
+            enlace.cerrar();
+        }
+
+        private void btnLimpiar_Click(object sender, RoutedEventArgs e)
+        {
+            limpiar();
+            carga_dg();
+
         }
     }
 }
