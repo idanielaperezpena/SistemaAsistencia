@@ -1,20 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Runtime.InteropServices;
 using System.Data;
-using Excels=Microsoft.Office.Interop.Excel;
-using System.Threading;
 using System.ComponentModel;
 using System.IO;
 using System.Data.OleDb;
@@ -32,11 +19,7 @@ namespace SA
        string filename;
         Enlace enlace;
         bool error = false;
-        //cosas del excel
-        //Excels.Application xlApp;
-        //Excels.Workbook xlWorkbook;
-        //Excels._Worksheet xlWorksheet;
-        //Excels.Range xlRange;
+        
 
         public Excel( Enlace enlace)
         {
@@ -45,9 +28,6 @@ namespace SA
             
             table = new DataTable("Alumnos Cargados");
             
-
-
-
         }
         
         private  void guarda_bd(object sender, DoWorkEventArgs e)
@@ -78,7 +58,10 @@ namespace SA
 
         private void carga_excel(object sender, DoWorkEventArgs e)
         {
-            
+            try
+            {
+
+           
             DataTable dt = new DataTable("x");
           
             string filePath = filename;
@@ -91,7 +74,7 @@ namespace SA
                 case ".xls": //Excel 97-03.
                     conString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
                     break;
-                case ".xlsx": //Excel 07 and above.
+                case ".xlsx": //Excel 07 - ...
                     conString = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0};Extended Properties='Excel 8.0;HDR=YES'";
                     break;
             }
@@ -134,6 +117,12 @@ namespace SA
                         dgExcel.ItemsSource = table.DefaultView;
 
                     }));
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Hubo un error al cargar los registros, por favor intente de nuevo", "Error de carga", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
 
         }
 
@@ -197,12 +186,13 @@ namespace SA
 
             }
             dgExcel.Items.Refresh();
+
         }
 
         private void btnGuardar_Click(object sender, RoutedEventArgs e)
         {
             
-            MessageBoxResult result= MessageBox.Show("¿Está seguro que desea cargar estos datos?\n Eso borraría los datos existentes para cargar esta nueva información.", "Alerta de carga de datos", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
+            MessageBoxResult result= MessageBox.Show("¿Está seguro que desea cargar estos datos?\nEso borraría los datos existentes para cargar esta nueva información.", "Alerta de carga de datos", MessageBoxButton.YesNo, MessageBoxImage.Warning, MessageBoxResult.No);
             if (result == MessageBoxResult.Yes)
             {
                 dg = dgExcel;

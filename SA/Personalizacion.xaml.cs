@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using System.IO;
 
 namespace SA
@@ -44,67 +34,76 @@ namespace SA
 
         private void btnAplicar_Click(object sender, RoutedEventArgs e)
         {
-            bool tipo=false; //false update true insert
-            
-            enlace.conectar();
-            String[] s = new string[2];
-            s=enlace.consultaPersonalizacion();
-           
-            if (!string.IsNullOrEmpty(s[1]))
-            {
-                tipo = false;
+            try {
+                bool tipo = false; //false update true insert
+
+                enlace.conectar();
+                String[] s = new string[2];
+                s = enlace.consultaPersonalizacion();
+
+                if (!string.IsNullOrEmpty(s[1]))
+                {
+                    tipo = false;
+                }
+                else
+                {
+                    tipo = true;
+                }
+                if (rdioAmarillo.IsChecked == true)
+                {
+                    enlace.color("Amber", tipo);
+
+                }
+                if (rdioAzul.IsChecked == true)
+                {
+                    enlace.color("Indigo", tipo);
+                }
+                if (rdioGris.IsChecked == true)
+                {
+                    enlace.color("Grey", tipo);
+                }
+                if (rdioMorado.IsChecked == true)
+                {
+                    enlace.color("DeepPurple", tipo);
+                }
+                if (rdioNaranja.IsChecked == true)
+                {
+                    enlace.color("DeepOrange", tipo);
+                }
+                if (rdioRojo.IsChecked == true)
+                {
+                    enlace.color("Red", tipo);
+                }
+                if (rdioRosa.IsChecked == true)
+                {
+                    enlace.color("Pink", tipo);
+                }
+                if (rdioTurquesa.IsChecked == true)
+                {
+                    enlace.color("Teal", tipo);
+                }
+                if (rdioVerde.IsChecked == true)
+                {
+                    enlace.color("Green", tipo);
+                }
+                enlace.cerrar();
+
+                if (imgFondo.Source != null)
+                {
+                    var encoder = new PngBitmapEncoder();
+                    encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgFondo.Source));
+                    using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory + "Fondo.jpeg", FileMode.Create))
+                        encoder.Save(stream);
+                }
+
+                MessageBox.Show("Cambios aplicados exitosamente.", "Cambios aplicados", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            catch (Exception )
             {
-                tipo = true;
+                MessageBox.Show("Hubo un problema al guardar los cambios.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-            if (rdioAmarillo.IsChecked == true)
-            {
-                enlace.color("Amber", tipo);
-                
-            }
-            if (rdioAzul.IsChecked == true)
-            {
-                enlace.color("Indigo", tipo);
-            }
-            if (rdioGris.IsChecked == true)
-            {
-                enlace.color("Grey", tipo);
-            }
-            if (rdioMorado.IsChecked == true)
-            {
-                enlace.color("DeepPurple", tipo);
-            }
-            if (rdioNaranja.IsChecked == true)
-            {
-                enlace.color("DeepOrange", tipo);
-            }
-            if (rdioRojo.IsChecked == true)
-            {
-                enlace.color("Red", tipo);
-            }
-            if (rdioRosa.IsChecked == true)
-            {
-                enlace.color("Pink", tipo);
-            }
-            if (rdioTurquesa.IsChecked == true)
-            {
-                enlace.color("Teal", tipo);
-            }
-            if (rdioVerde.IsChecked == true)
-            {
-                enlace.color("Green", tipo);
-            }
-            enlace.cerrar();
-            
-            if (imgFondo.Source != null)
-            {
-                var encoder = new PngBitmapEncoder();
-                encoder.Frames.Add(BitmapFrame.Create((BitmapSource)imgFondo.Source));
-                using (FileStream stream = new FileStream(AppDomain.CurrentDomain.BaseDirectory+"Fondo.jpeg", FileMode.Create))
-                    encoder.Save(stream);
-            }
-                     
+
+
         }
 
         private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)

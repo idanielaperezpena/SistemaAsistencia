@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.SQLite;
 using System.Windows;
 
 namespace SA
 {
-   public class Enlace
+    public class Enlace
     {
 
         //codigo de conexion y creación de la base de datos
@@ -17,10 +13,10 @@ namespace SA
 
         public Enlace()
         {
-            if (!System.IO.File.Exists("dbAsistencia.sqlite"))
+            if (!System.IO.File.Exists(AppDomain.CurrentDomain.BaseDirectory + "dbAsistencia.sqlite"))
             {
-                SQLiteConnection.CreateFile("dbAsistencia.sqlite");
-                Console.WriteLine("BD creada");
+                SQLiteConnection.CreateFile(AppDomain.CurrentDomain.BaseDirectory + "dbAsistencia.sqlite");
+                
             }       
         }
         //EJECUTA COMANDOS QUE NO RETORNAN NINGUN VALOR
@@ -32,23 +28,41 @@ namespace SA
                 command.ExecuteNonQuery();
                 return 0;
             }
-            catch (Exception e)
+            catch (Exception )
             {
-                MessageBox.Show(e.ToString());
-                //error
+                MessageBox.Show("Ocurrio un error.\n Por favor intente nuevamente", "Error de recuperación de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+              
                 return 1;
             }
         }
         //CONECTA
         public void conectar()
         {
-            m_dbConnection = new SQLiteConnection("Data Source=dbAsistencia.sqlite; Version=3;");
+            try
+            {
+
+           
+            m_dbConnection = new SQLiteConnection("Data Source="+ AppDomain.CurrentDomain.BaseDirectory + "dbAsistencia.sqlite; Version=3;");
             m_dbConnection.Open();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrio un error.\n Por favor intente nuevamente o cierre el programa e inicelo de nuevo.", "Error de conexión a la base de datos.", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            }
         }
         //CIERRA
         public void cerrar()
         {
-            m_dbConnection.Close();
+            try
+            {
+                m_dbConnection.Close();
+            }
+            catch (Exception)
+            {
+
+            }
+           
         }
         //CREA LAS TABLAS
         public void tablas()
@@ -86,11 +100,21 @@ namespace SA
         }
 
         public int consulta_existencia(string id)
-        {         
-            SQLiteCommand command = new SQLiteCommand("SELECT COUNT(ID) FROM ALUMNOS WHERE ID = '"+id+"' ;", m_dbConnection);
-            int count = Convert.ToInt32(command.ExecuteScalar());
-            command.ExecuteNonQuery();          
-            return count;
+        {
+            try
+            {
+                SQLiteCommand command = new SQLiteCommand("SELECT COUNT(ID) FROM ALUMNOS WHERE ID = '" + id + "' ;", m_dbConnection);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                command.ExecuteNonQuery();
+                return count;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrio un error.\n Por favor intente nuevamente", "Error de recuperación de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return 0;
+            }
+            
         }
 
         public SQLiteDataAdapter consulta()
@@ -116,8 +140,17 @@ namespace SA
                 sql = "INSERT INTO PERSONALIZACION VALUES(1,'','" + color + "');";
             }                
             comandos(sql);
-            Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor."+color+".xaml");
-            Application.Current.Resources.MergedDictionaries[0].Source = uri;          
+            try
+            {
+                Uri uri = new Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor." + color + ".xaml");
+                Application.Current.Resources.MergedDictionaries[0].Source = uri;
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Hubo un error al aplicar los cambios.\nPor favor intente nuevamente.", "Error al aplicar los cambios.", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+           
         }
            
         public string[] consultaPersonalizacion()
@@ -157,12 +190,22 @@ namespace SA
                
         public int consultar_asistencia(string id_alumno)
         {
-            DateTime fechahora = DateTime.Now;
-            string fecha = fechahora.ToString("dd-MM-yyyy");
-            SQLiteCommand command = new SQLiteCommand("SELECT COUNT(ID_ALUMNO) FROM Asistencia WHERE ID_ALUMNO = '" + id_alumno + "' AND FECHA = '"+fecha+"' ;", m_dbConnection);
-            int count = Convert.ToInt32(command.ExecuteScalar());
-            command.ExecuteNonQuery();
-            return count;
+            try
+            {
+                DateTime fechahora = DateTime.Now;
+                string fecha = fechahora.ToString("dd-MM-yyyy");
+                SQLiteCommand command = new SQLiteCommand("SELECT COUNT(ID_ALUMNO) FROM Asistencia WHERE ID_ALUMNO = '" + id_alumno + "' AND FECHA = '" + fecha + "' ;", m_dbConnection);
+                int count = Convert.ToInt32(command.ExecuteScalar());
+                command.ExecuteNonQuery();
+                return count;
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Ocurrio un error.\n Por favor intente nuevamente", "Error de recuperación de datos", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                return 0;
+            }
+           
         }
 
         public String[] consulta_alumno(string ID)

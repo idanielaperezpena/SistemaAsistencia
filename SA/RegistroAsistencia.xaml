@@ -52,9 +52,9 @@
                     <StackPanel Grid.Row="1" Margin="0,11,0,0">
                         <TextBox x:Name="txtID" Height="30" TextWrapping="Wrap" CharacterCasing="Upper" MaxLines="1" MaxLength="10" KeyDown="txtID_KeyDown" TextAlignment="Center" />
                         <TextBlock x:Name="txbID" FontWeight="Bold"  Style="{StaticResource MaterialDesignDisplay2TextBlock}"
-                            Text="ID" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre"/>
+                            Text="ID" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre" FontSize="36"/>
                         <TextBlock x:Name="txbNombre" FontWeight="Bold"  Style="{StaticResource MaterialDesignDisplay2TextBlock}"
-                               Text="Nombre" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre"/>
+                               Text="Nombre" RenderTransformOrigin="0.568,0.531" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtNombre" FontSize="24"/>
                         <TextBlock x:Name="txbGradoGrupo" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}"  Text="Grado y Grupo" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtGradoGrupo"/>
                         <TextBlock x:Name="txbObservaciones" TextWrapping="Wrap"  Style="{StaticResource MaterialDesignSubheadingTextBlock}" Text="Observaciones" TextAlignment="Center" Margin="0,5,0,0" AutomationProperties.Name="txtObservaciones"/>
                     </StackPanel>

@@ -93,19 +93,16 @@ C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Excel.g.cs
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Excel.baml
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Login.g.cs
 C:\xampp\htdocs\SistemaAsistencia\SA\obj\Debug\Login.baml
-C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\users\defaultUser.png
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\SA.exe.config
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\SA.exe
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\SA.pdb
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\EntityFramework.dll
-C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\EntityFramework.SqlServer.dll
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\MaterialDesignColors.dll
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\MaterialDesignThemes.Wpf.dll
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\System.Data.SQLite.dll
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\System.Data.SQLite.EF6.dll
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\System.Data.SQLite.Linq.dll
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\EntityFramework.xml
-C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\MaterialDesignColors.pdb
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\MaterialDesignThemes.Wpf.pdb
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\bin\Debug\MaterialDesignThemes.Wpf.xml
@@ -135,3 +132,4 @@ C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csproj.Generate
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csproj.CoreCompileInputs.cache
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.exe
 C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.pdb
+C:\Users\Danny\source\repos\SA\SistemaAsistencia\SA\obj\Debug\SA.csprojResolveAssemblyReference.cache

@@ -43,7 +43,7 @@ Foreground="{DynamicResource PrimaryHueLightForegroundBrush}" Padding="32" Margi
         </materialDesign:Card>
         <Button x:Name="btnCargarArchivo" Style="{StaticResource MaterialDesignRaisedButton}" Content="Selecciona un archivo" Margin="30,0,204,0" Grid.Row="2" Grid.ColumnSpan="2" Click="btnCargarArchivo_Click" AutomationProperties.HelpText="El documento debe tener seis columnas ID, Nombre, Grado, Tutor, Telefono y Observaciones."/>
         <TextBlock x:Name="textbRuta" Grid.Column="1" Margin="158,0,0,0" Grid.Row="2" TextWrapping="Wrap" Text="No has seleccionado nada." Grid.ColumnSpan="2" Height="30"/>
-        <ScrollViewer Grid.ColumnSpan="4" Margin="16,16,16,0" Grid.Row="4" Grid.RowSpan="6">
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.ColumnSpan="4" Margin="16,16,16,0" Grid.Row="4" Grid.RowSpan="6">
             <DataGrid x:Name="dgExcel" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" CanUserReorderColumns="False" SelectionUnit="CellOrRowHeader"/>
         </ScrollViewer>
         <Button x:Name="btnGuardar" Content="Guardar" Grid.Column="2" HorizontalAlignment="Left" Margin="80,0,0,0" Grid.Row="10" Height="32" VerticalAlignment="Center" Click="btnGuardar_Click" IsEnabled="False"/>
